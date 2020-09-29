@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Alexey Nezhnov](https://up.htmlacademy.ru/react/5/user/966955).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений Фаллер](https://htmlacademy.ru/profile/id505933).
 
 ---
 
