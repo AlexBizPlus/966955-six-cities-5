@@ -11,9 +11,9 @@ npm i react@16.12 -E
 
 * axios@0.19
 * history@4.10
-* prop-types@15.7
-* react@16.12
-* react-dom@16.12
+* prop-types@15.7                  (ok)
+* react@16.12                      (ok)
+* react-dom@16.12                  (ok)
 * react-redux@7.2
 * react-router-dom@5.1
 * redux@4
