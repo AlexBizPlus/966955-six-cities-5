@@ -6,12 +6,13 @@ Thumbs.db
 .idea
 *.sublime*
 .vscode
-.jsbeautifyrc
 
 # Вспомогательные файлы
 *.log*
 node_modules/
+package-lock.json
+.prettierrc
 
-# Продакшн
+# Папка с собранными файлами проекта
 public/bundle.js
 public/bundle.js.map
