@@ -4,8 +4,6 @@ import App from "./components/app/app";
 import {RENTAL_OFFERS_NUMBER} from "./const";
 
 ReactDOM.render(
-    <App
-      rentalOffersNumber={RENTAL_OFFERS_NUMBER}
-    />,
+    <App rentalOffersNumber={RENTAL_OFFERS_NUMBER} />,
     document.querySelector(`#root`)
 );
