@@ -7,7 +7,6 @@ import Favorites from "../favorites/favorites";
 import Offer from "../offer/offer";
 
 const App = ({rentalOffersNumber}) => {
-
   return (
     <BrowserRouter>
       <Switch>
