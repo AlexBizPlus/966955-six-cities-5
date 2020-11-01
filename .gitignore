@@ -12,6 +12,8 @@ Thumbs.db
 node_modules/
 package-lock.json
 .prettierrc
+.prettierrc.json
+package-lock.json
 
 # Папка с собранными файлами проекта
 public/bundle.js
