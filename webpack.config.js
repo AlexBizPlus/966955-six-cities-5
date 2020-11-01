@@ -28,7 +28,18 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      app: path.resolve(__dirname, 'src/components/app/app.jsx'),
+      main: path.resolve(__dirname, 'src/components/main/main.jsx'),
+      login: path.resolve(__dirname, 'src/components/login/login.jsx'),
+      favorites: path.resolve(__dirname, 'src/components/favorites/favorites.jsx'),
+      offer: path.resolve(__dirname, 'src/components/offer/offer.jsx'),
+      cards: path.resolve(__dirname, 'src/components/cards/cards.jsx'),
+      card: path.resolve(__dirname, 'src/components/card/card.jsx'),
+      form: path.resolve(__dirname, 'src/components/form/form.jsx'),
+      cityMap: path.resolve(__dirname, 'src/components/city-map/city-map.jsx'),
+    }
   },
   devtool: 'source-map',
 };

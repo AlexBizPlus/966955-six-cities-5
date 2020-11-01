@@ -1,8 +1,8 @@
 import React from "react";
-import Cards from "../cards/cards";
-import {myPropTypes as PropTypes} from "../../prop";
 import {Link} from 'react-router-dom';
-import CityMap from "../city-map/city-map";
+import {myPropTypes as PropTypes} from "../../prop";
+import Cards from "cards";
+import CityMap from "cityMap";
 
 const Main = ({offers, reviews}) => {
   return (

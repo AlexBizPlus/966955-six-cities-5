@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 import {myPropTypes as PropTypes} from "../../prop";
-import Card from "../card/card";
+import Card from "card";
 
 class Cards extends PureComponent {
   constructor(props) {

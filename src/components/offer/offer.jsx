@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import classNames from "classnames";
-import Cards from "../cards/cards";
-import Form from "../form/form";
+import Cards from "cards";
+import Form from "form";
 import {myPropTypes as PropTypes} from "../../prop";
 import {Link} from 'react-router-dom';
 
