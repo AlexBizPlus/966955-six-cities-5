@@ -1,17 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import Main from "../main/main";
 import Login from "../login/login";
 import Favorites from "../favorites/favorites";
 import Offer from "../offer/offer";
+import {myPropTypes as PropTypes} from "../../prop";
 
-const App = ({rentalOffersNumber}) => {
+const App = ({offers, reviews}) => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main rentalOffersNumber={rentalOffersNumber} />
+          <Main offers={offers} reviews={reviews}/>
         </Route>
         <Route exact path="/login">
           <Login />
@@ -20,7 +20,7 @@ const App = ({rentalOffersNumber}) => {
           <Favorites />
         </Route>
         <Route exact path="/offer/:id?">
-          <Offer />
+          <Offer offer={offers[0]} reviews={reviews} offers={offers}/>
         </Route>
       </Switch>
     </BrowserRouter>
@@ -28,7 +28,8 @@ const App = ({rentalOffersNumber}) => {
 };
 
 App.propTypes = {
-  rentalOffersNumber: PropTypes.number.isRequired,
+  offers: PropTypes.offers,
+  reviews: PropTypes.reviews
 };
 
 export default App;
