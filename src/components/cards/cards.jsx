@@ -11,7 +11,6 @@ class Cards extends PureComponent {
     };
   }
 
-
   render() {
     const {offers, classes} = this.props;
 
