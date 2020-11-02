@@ -1,8 +1,8 @@
 import React from "react";
-// import PropTypes from "prop-types";
-import Cards from "../cards/cards";
-import {myPropTypes as PropTypes} from "../../prop";
 import {Link} from 'react-router-dom';
+import {myPropTypes as PropTypes} from "../../prop";
+import Cards from "cards";
+import CityMap from "cityMap";
 
 const Main = ({offers, reviews}) => {
   return (
@@ -116,7 +116,9 @@ const Main = ({offers, reviews}) => {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <CityMap offers={offers}/>
+              </section>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 import {myPropTypes as PropTypes} from "../../prop";
-import Card from "../card/card";
+import Card from "card";
 
 class Cards extends PureComponent {
   constructor(props) {
@@ -10,7 +10,6 @@ class Cards extends PureComponent {
       activeCard: 0,
     };
   }
-
 
   render() {
     const {offers, classes} = this.props;

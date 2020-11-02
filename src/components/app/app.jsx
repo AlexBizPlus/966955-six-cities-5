@@ -1,9 +1,9 @@
 import React from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
-import Main from "../main/main";
-import Login from "../login/login";
-import Favorites from "../favorites/favorites";
-import Offer from "../offer/offer";
+import Main from "main";
+import Login from "login";
+import Favorites from "favorites";
+import Offer from "offer";
 import {myPropTypes as PropTypes} from "../../prop";
 
 const App = ({offers, reviews}) => {

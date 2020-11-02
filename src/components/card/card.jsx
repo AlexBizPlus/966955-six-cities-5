@@ -4,9 +4,6 @@ import classNames from "classnames";
 import {Link} from 'react-router-dom';
 
 class Card extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
 
   starStyleWidth(rating) {
     return Math.round(rating) / 5 * 100;
