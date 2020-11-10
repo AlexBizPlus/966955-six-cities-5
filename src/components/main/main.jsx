@@ -1,10 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Link} from 'react-router-dom';
+import {connect, useSelector, useDispatch} from "react-redux";
+import {fetchHotelsAction} from "../../store/actions/hotel-actions";
 import {myPropTypes as PropTypes} from "../../prop";
 import Cards from "cards";
 import CityMap from "cityMap";
+import Cities from "cities";
 
-const Main = ({offers, reviews}) => {
+const Main = () => {
+
+  const activeCity = useSelector((state) => state.city.activeCity);
+  const offers = useSelector((state) => state.hotels.hotels).filter((item)=>item.city.name === activeCity);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchHotelsAction());
+  }, [activeCity]);
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -39,43 +51,11 @@ const Main = ({offers, reviews}) => {
           </div>
         </div>
       </header>
-
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <Cities />
           </section>
         </div>
         <div className="cities">
@@ -83,7 +63,7 @@ const Main = ({offers, reviews}) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {offers.length} places to stay in Amsterdam
+                {offers.length} places to stay in {activeCity}
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -112,7 +92,7 @@ const Main = ({offers, reviews}) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Cards offers={offers} reviews={reviews} classes={[`cities__place-card`, `place-card`]}/>
+                <Cards offers={offers} classes={[`cities__place-card`, `place-card`]}/>
               </div>
             </section>
             <div className="cities__right-section">
@@ -132,4 +112,17 @@ Main.propTypes = {
   reviews: PropTypes.reviews
 };
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    hotels: state.hotels,
+    activeCity: state.activeCity
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchHotelsAction: (hotels) => dispatch(fetchHotelsAction(hotels)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

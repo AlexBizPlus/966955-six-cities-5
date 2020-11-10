@@ -39,6 +39,7 @@ module.exports = {
       card: path.resolve(__dirname, 'src/components/card/card.jsx'),
       form: path.resolve(__dirname, 'src/components/form/form.jsx'),
       cityMap: path.resolve(__dirname, 'src/components/city-map/city-map.jsx'),
+      cities: path.resolve(__dirname, 'src/components/cities/cities.jsx'),
     }
   },
   devtool: 'source-map',

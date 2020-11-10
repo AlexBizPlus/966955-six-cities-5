@@ -120,7 +120,7 @@ export default [
       "name": `Angelina`
     },
     "id": 4,
-    "images": [`Fridge`, `Baby seat`, `Kitchen`, `Heating`, `Washing machine`],
+    "images": [`../img/apartment-01.jpg`, `../img/apartment-02.jpg`, `../img/apartment-03.jpg`],
     "is_favorite": false,
     "is_premium": false,
     "location": {

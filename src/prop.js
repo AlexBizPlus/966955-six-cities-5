@@ -35,7 +35,7 @@ export const myPropTypes = {
     "rating": PropTypes.number.isRequired,
     "title": PropTypes.string.isRequired,
     "type": PropTypes.string.isRequired,
-  })).isRequired,
+  })),
 
   offer: PropTypes.shape({
     "bedrooms": PropTypes.number.isRequired,
@@ -70,7 +70,7 @@ export const myPropTypes = {
     "rating": PropTypes.number.isRequired,
     "title": PropTypes.string.isRequired,
     "type": PropTypes.string.isRequired,
-  }).isRequired,
+  }),
 
   reviews: PropTypes.arrayOf(PropTypes.shape({
     "comment": PropTypes.string.isRequired,
@@ -83,11 +83,15 @@ export const myPropTypes = {
       "is_pro": PropTypes.bool.isRequired,
       "name": PropTypes.string.isRequired,
     }).isRequired
-  })).isRequired,
+  })),
 
   classes: PropTypes.arrayOf(PropTypes.string.isRequired),
 
   showActiveCard: PropTypes.func.isRequired,
 
-  params: PropTypes.any,
+  match: PropTypes.shape({
+    "params": PropTypes.shape({
+      "id": PropTypes.string
+    })
+  })
 };
