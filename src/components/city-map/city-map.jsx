@@ -4,9 +4,6 @@ import L from "leaflet";
 import "./city-map.css";
 
 class CityMap extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     const {offers} = this.props;

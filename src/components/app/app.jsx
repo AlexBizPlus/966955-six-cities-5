@@ -6,12 +6,11 @@ import Favorites from "favorites";
 import Offer from "offer";
 import {myPropTypes as PropTypes} from "../../prop";
 
-const App = ({offers, reviews}) => {
+const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <Main offers={offers} reviews={reviews}/>
+        <Route exact path="/" component={Main}>
         </Route>
         <Route exact path="/login">
           <Login />
@@ -19,9 +18,7 @@ const App = ({offers, reviews}) => {
         <Route exact path="/favorites">
           <Favorites />
         </Route>
-        <Route exact path="/offer/:id?">
-          <Offer offer={offers[0]} reviews={reviews} offers={offers}/>
-        </Route>
+        <Route exact path="/offer/:id" component={Offer} />
       </Switch>
     </BrowserRouter>
   );

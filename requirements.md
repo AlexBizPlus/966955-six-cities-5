@@ -9,15 +9,15 @@ npm i react@16.12 -E
 
 ## dependencies
 
-* axios@0.19
-* history@4.10
+* axios@0.19                       (ok)
+* history@4.10                     (ok)
 * prop-types@15.7                  (ok)
 * react@16.12                      (ok)
 * react-dom@16.12                  (ok)
-* react-redux@7.2
+* react-redux@7.2                  (ok)
 * react-router-dom@5.1             (ok)
-* redux@4
-* redux-thunk@2.3
+* redux@4                          (ok)
+* redux-thunk@2.3                  (ok)
 * reselect@4
 
 ## devDependencies
