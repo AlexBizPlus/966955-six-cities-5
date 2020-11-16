@@ -1,6 +1,6 @@
 import {ACTIVE_CITY} from '../actions/action-types';
-import {CitiesList} from '../../const';
-import {extend} from "../../utils";
+import {CitiesList} from 'const';
+import {extend} from "utils";
 
 const initialState = {
   activeCity: CitiesList[0]

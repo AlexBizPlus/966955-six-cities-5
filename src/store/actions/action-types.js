@@ -1,7 +1,19 @@
 export const HOTELS = `HOTELS`;
+export const HOTELS_UPDATE = `HOTELS_UPDATE`;
 export const HOTEL_OFFER = `HOTEL_OFFER`;
 export const HOTELS_NEARBY = `HOTELS_NEARBY`;
+export const HOTEL_HOVER = `HOTEL_HOVER`;
+export const HOTEL_UPDATE = `HOTEL_UPDATE`;
+export const HOTELS_SORT = `HOTELS_SORT`;
 
 export const ACTIVE_CITY = `ACTIVE_CITY`;
 
 export const REVIEWS = `REVIEWS`;
+export const USER_REVIEW = `USER_REVIEW`;
+export const USER_RATING = `USER_RATING`;
+export const REVIEW_LOADING = `REVIEW_LOADING`;
+export const REVIEW_LOADING_ERROR = `REVIEW_LOADING_ERROR`;
+
+export const REQUIRED_AUTHORIZATION = `REQUIRED_AUTHORIZATION`;
+export const REDIRECT_TO_ROUTE = `REDIRECT_TO_ROUTE`;
+export const SAVE_LOGIN = `SAVE_LOGIN`;

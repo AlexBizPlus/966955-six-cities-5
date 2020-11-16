@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.js',
@@ -24,7 +25,11 @@ module.exports = {
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader']
-      }
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: ['file-loader'],
+      },
     ],
   },
   resolve: {
@@ -40,6 +45,16 @@ module.exports = {
       form: path.resolve(__dirname, 'src/components/form/form.jsx'),
       cityMap: path.resolve(__dirname, 'src/components/city-map/city-map.jsx'),
       cities: path.resolve(__dirname, 'src/components/cities/cities.jsx'),
+      emptyFavorites: path.resolve(__dirname, 'src/components/empty-favorites/empty-favorites.jsx'),
+      emptyMain: path.resolve(__dirname, 'src/components/empty-main/empty-main.jsx'),
+      const: path.resolve(__dirname, 'src/const.js'),
+      prop: path.resolve(__dirname, 'src/prop.js'),
+      utils: path.resolve(__dirname, 'src/utils.js'),
+      userActions: path.resolve(__dirname, 'src/store/actions/user-actions.js'),
+      mapActions: path.resolve(__dirname, 'src/store/actions/map-actions.js'),
+      hotelActions: path.resolve(__dirname, 'src/store/actions/hotel-actions.js'),
+      cityActions: path.resolve(__dirname, 'src/store/actions/city-actions.js'),
+      reviewsActions: path.resolve(__dirname, 'src/store/actions/reviews-actions.js'),
     }
   },
   devtool: 'source-map',

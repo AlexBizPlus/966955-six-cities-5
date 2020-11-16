@@ -1,20 +1,27 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
+import {Link, useParams} from 'react-router-dom';
 import {connect, useSelector, useDispatch} from "react-redux";
-import {fetchHotelNearbyAction, fetchHotelOfferAction} from "../../store/actions/hotel-actions";
-import {fetchReviewsAction} from "../../store/actions/reviews-actions";
+import {fetchHotelNearbyAction, fetchHotelOfferAction} from "hotelActions";
+import {fetchReviewsAction} from "reviewsActions";
+import {favoriteAction, checkAuthAction} from "userActions";
+import {Routes, MAX_COMMENTS} from 'const';
 import classNames from "classnames";
 import Cards from "cards";
 import Form from "form";
-import {myPropTypes as PropTypes} from "../../prop";
-import {Link, useParams} from 'react-router-dom';
+import CityMap from "cityMap";
+import {myPropTypes as PropTypes} from "prop";
+import {formatDate} from "utils";
 
 const Offer = () => {
-  const {id} = useParams();
 
+  const login = useSelector((state) => state.user.login);
   const offer = useSelector((state) => state.hotels.offer);
   const reviews = useSelector((state) => state.reviews.reviews);
+  const reviewsCount = useSelector((state) => state.reviews.reviewsCount);
   const nearby = useSelector((state) => state.hotels.nearby);
   const dispatch = useDispatch();
+  const buttonRef = useRef();
+  const {id} = useParams();
 
   useEffect(() => {
     dispatch(fetchHotelOfferAction(id));
@@ -24,18 +31,24 @@ const Offer = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  });
+  }, [offer]);
 
   if (!offer || !reviews || !nearby) {
     return (<div>Loading</div>);
   }
 
-  const placeCardBookmarkStyle = classNames(
-      `property__bookmark-button`,
-      `button`,
-      {
-        "property__bookmark-button--active": offer[`is_favorite`]
-      });
+  const handleButtonClick = (evt) => {
+    evt.preventDefault();
+    dispatch(favoriteAction(offer[`id`], +!offer[`is_favorite`]));
+    offer[`is_favorite`] = !offer[`is_favorite`];
+    buttonRef.current.classList.toggle(`property__bookmark-button--active`);
+  };
+
+  const buttonStyle = {
+    "property__bookmark-button": true,
+    "button": true,
+    "property__bookmark-button--active": offer[`is_favorite`]
+  };
 
   return (
     <div className="page">
@@ -43,17 +56,19 @@ const Offer = () => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link className="header__logo-link" to="/">
+              <Link className="header__logo-link" to={Routes.HOME} >
                 <img className="header__logo" src="../img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to="/login">
+                  <Link className="header__nav-link header__nav-link--profile" to={Routes.FAVORITES}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">
+                      {login}
+                    </span>
                   </Link>
                 </li>
               </ul>
@@ -85,7 +100,12 @@ const Offer = () => {
                 <h1 className="property__name">
                   {offer[`title`]}
                 </h1>
-                <button className={placeCardBookmarkStyle} type="button">
+                <button
+                  className={classNames(buttonStyle)}
+                  type="button"
+                  ref={buttonRef}
+                  onClick={handleButtonClick}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -145,10 +165,10 @@ const Offer = () => {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
                 <ul className="reviews__list">
                   {
-                    reviews.map((review, i) => {
+                    reviews.slice(0, MAX_COMMENTS).map((review, i) => {
                       return (
                         <li className="reviews__item" key={i}>
                           <div className="reviews__user user">
@@ -169,7 +189,7 @@ const Offer = () => {
                             <p className="reviews__text">
                               {review[`comment`]}
                             </p>
-                            <time className="reviews__time" dateTime={review[`date`]}>{review[`date`]}</time>
+                            <time className="reviews__time" dateTime={review[`date`]}>{formatDate(review[`date`])}</time>
                           </div>
                         </li>
                       );
@@ -180,13 +200,18 @@ const Offer = () => {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <CityMap mode={`offer`} />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <Cards offers={nearby} classes={[`near-places__card`, `place-card`]} />
+              <Cards offers={nearby}
+                classes={[`near-places__card`, `place-card`]}
+                style={`regular`}
+              />
             </div>
           </section>
         </div>
@@ -195,26 +220,24 @@ const Offer = () => {
   );
 };
 
-Offer.propTypes = {
-  offer: PropTypes.offer,
-  offers: PropTypes.offers,
-  reviews: PropTypes.reviews,
-};
-
 const mapStateToProps = (state) => {
   return {
     hotels: state.hotels,
     offer: state.offer,
     nearby: state.nearby,
+    login: state.login,
+    reviewsCount: state.reviewsCount,
+    reviews: state.reviews
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // fetchHotelsAction: (hotels) => dispatch(fetchHotelsAction(hotels)),
     fetchHotelOfferAction: (offer) => dispatch(fetchHotelOfferAction(offer)),
     fetchReviewsAction: (reviews) => dispatch(fetchReviewsAction(reviews)),
     fetchHotelNearbyAction: (nearby) => dispatch(fetchHotelNearbyAction(nearby)),
+    favoriteAction: ()=> dispatch(favoriteAction()),
+    checkAuthAction: ()=> dispatch(checkAuthAction())
   };
 };
 
