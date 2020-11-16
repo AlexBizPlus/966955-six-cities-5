@@ -87,11 +87,17 @@ export const myPropTypes = {
 
   classes: PropTypes.arrayOf(PropTypes.string.isRequired),
 
-  showActiveCard: PropTypes.func.isRequired,
+  mode: PropTypes.string,
 
-  match: PropTypes.shape({
-    "params": PropTypes.shape({
-      "id": PropTypes.string
-    })
-  })
+  style: PropTypes.string,
+
+  authorizationStatus: PropTypes.string.isRequired,
+
+  exact: PropTypes.bool.isRequired,
+
+  path: PropTypes.string.isRequired,
+
+  render: PropTypes.func.isRequired,
+
+  component: PropTypes.object.isRequired,
 };

@@ -1,15 +1,24 @@
-import {HOTELS, HOTEL_OFFER, HOTELS_NEARBY} from '../actions/action-types';
-import {extend} from "../../utils";
+import {HOTELS, HOTELS_UPDATE, HOTEL_OFFER, HOTELS_NEARBY, HOTEL_UPDATE, HOTELS_SORT} from '../actions/action-types';
+import {extend} from "utils";
+import {SortList} from "const";
 
 const initialState = {
   hotels: [],
+  unsorted: [],
   offer: null,
   nearby: null,
+  update: 0,
+  sort: SortList[0].id
 };
 
 const hotelReducer = (state = initialState, action) => {
   switch (action.type) {
     case HOTELS:
+      return extend(state, {
+        hotels: action.hotels,
+        unsorted: action.hotels,
+      });
+    case HOTELS_UPDATE:
       return extend(state, {
         hotels: action.hotels,
       });
@@ -21,7 +30,14 @@ const hotelReducer = (state = initialState, action) => {
       return extend(state, {
         nearby: action.nearby,
       });
-
+    case HOTEL_UPDATE:
+      return extend(state, {
+        update: state.update + action.update,
+      });
+    case HOTELS_SORT:
+      return extend(state, {
+        sort: action.sort,
+      });
     default:
       return state;
   }

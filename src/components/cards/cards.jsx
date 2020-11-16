@@ -1,41 +1,27 @@
-import React, {PureComponent} from "react";
-import {myPropTypes as PropTypes} from "../../prop";
+import React from "react";
+import {myPropTypes as PropTypes} from "prop";
 import Card from "card";
 
-class Cards extends PureComponent {
-  constructor(props) {
-    super(props);
+const Cards = ({offers, classes, style}) => {
 
-    this.state = {
-      activeCard: 0,
-    };
-  }
-
-  render() {
-    const {offers, classes} = this.props;
-
-    return (
-      offers.map((offer, i) => {
+  return (
+    <>
+      { offers.map((offer, i) => {
         return <Card
           offer={offer}
           key={i}
           classes={classes}
-          showActiveCard={(id) => {
-            this.setState(() => {
-              return {
-                activeCard: id
-              };
-            });
-          }}
+          style={style}
         />;
-      })
-    );
-  }
-}
+      })}
+    </>
+  );
+};
 
 Cards.propTypes = {
   offers: PropTypes.offers,
   classes: PropTypes.classes,
+  style: PropTypes.style,
 };
 
 export default Cards;

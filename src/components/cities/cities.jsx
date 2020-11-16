@@ -1,9 +1,8 @@
 import React from "react";
 import {connect, useSelector, useDispatch} from "react-redux";
-import {setActiveCity} from "../../store/actions/city-actions";
+import {setActiveCity} from "cityActions";
 import classNames from "classnames";
-import {myPropTypes as PropTypes} from "../../prop";
-import {CitiesList} from "../../const";
+import {CitiesList} from "const";
 import "./cities.css";
 
 const Cities = () => {
@@ -27,11 +26,6 @@ const Cities = () => {
       })}
     </ul>
   );
-};
-
-Cities.propTypes = {
-  offers: PropTypes.offers,
-  classes: PropTypes.classes,
 };
 
 const mapStateToProps = (state) => {

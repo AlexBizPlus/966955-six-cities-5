@@ -1,0 +1,17 @@
+.error-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,0  );
+  color: #ffffff;
+  background-color: #000000;
+  font-size: 25px;
+  padding: 20px;
+  border-radius: 3px;
+  z-index: 2;
+}
+
+.no-display {
+  display: none;
+  visibility: hidden;
+}

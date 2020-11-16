@@ -1,50 +1,92 @@
-import React, {PureComponent} from "react";
-import {myPropTypes as PropTypes} from "../../prop";
+import React, {useEffect, useRef} from "react";
+import {connect, useSelector} from "react-redux";
+import {myPropTypes as PropTypes} from "prop";
 import L from "leaflet";
 import "./city-map.css";
+import {ICON_URL, ICON_ACTIVE_URL, ICON_SIZE} from "const";
 
-class CityMap extends PureComponent {
 
-  componentDidMount() {
-    const {offers} = this.props;
+const CityMap = ({mode}) => {
 
-    const city = [52.38333, 4.9];
-    const icon = L.icon({
-      iconUrl: `../img/pin.svg`,
-      iconSize: [30, 30]
-    });
-    const zoom = 12;
-    const map = L.map(`mapid`, {
-      center: city,
-      zoom,
-      zoomControl: false,
-      marker: true
-    });
-    map.setView(city, zoom);
-    L.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-      attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-    })
-    .addTo(map);
+  const activeCity = useSelector((state) => state.city.activeCity);
+  const offer = useSelector((state) => state.hotels.offer);
+  const mapElement = useRef();
 
-    offers.map((offer) => {
-      const offerCords = [];
-      offerCords.push(offer[`location`][`latitude`]);
-      offerCords.push(offer[`location`][`longitude`]);
+  const offers = mode === `cities`
+    ? useSelector((state) => state.hotels.hotels).filter((item) => item.city.name === activeCity)
+    : useSelector((state) => state.hotels.nearby);
 
-      L.marker(offerCords, {icon})
-      .addTo(map);
-    });
-  }
+  const hover = mode === `cities`
+    ? useSelector((state) => state.map.hover)
+    : [0, 0];
 
-  render() {
-    return (
-      <div id="mapid"></div>
-    );
-  }
-}
+  useEffect(() => {
+    if (mapElement.current) {
+      mapElement.current.remove();
+    }
+    if (offers && offers.length > 0) {
+      const cityCoordX = offers[0].city.location.latitude;
+      const cityCoordY = offers[0].city.location.longitude;
 
-CityMap.propTypes = {
-  offers: PropTypes.offers,
+      const city = [cityCoordX, cityCoordY];
+      const hotelIcon = L.icon({
+        iconUrl: ICON_URL,
+        iconSize: ICON_SIZE
+      });
+      const activeIcon = L.icon({
+        iconUrl: ICON_ACTIVE_URL,
+        iconSize: ICON_SIZE
+      });
+      const zoom = 12;
+
+      const map = L.map(`mapid`, {
+        center: city,
+        zoom,
+        zoomControl: false,
+        marker: true
+      });
+      map.setView(city, zoom);
+      L.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
+        attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
+      })
+        .addTo(map);
+
+      offers.map((offerItem) => {
+
+        const offerCords = [offerItem[`location`][`latitude`], offerItem[`location`][`longitude`]];
+        const hotelMarker = L.marker(offerCords, {icon: hotelIcon});
+
+        if (offerCords[0] === hover[0] && offerCords[1] === hover[1] && mode === `cities`) {
+          hotelMarker.setIcon(activeIcon);
+        }
+
+        hotelMarker.addTo(map);
+      });
+
+      if (mode === `offer`) {
+        L.marker([offer[`location`][`latitude`], offer[`location`][`longitude`]], {icon: activeIcon}).addTo(map);
+      }
+
+      mapElement.current = map;
+    }
+  }, [offers, hover]);
+
+  return (
+    <div id="mapid" ></div>
+  );
 };
 
-export default CityMap;
+CityMap.propTypes = {
+  mode: PropTypes.mode,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    hotels: state.hotels,
+    activeCity: state.activeCity,
+    hover: state.hover,
+    nearby: state.nearby,
+  };
+};
+
+export default connect(mapStateToProps, null)(CityMap);
