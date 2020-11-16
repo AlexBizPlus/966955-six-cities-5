@@ -9,7 +9,6 @@ import classNames from "classnames";
 import Cards from "cards";
 import Form from "form";
 import CityMap from "cityMap";
-import {myPropTypes as PropTypes} from "prop";
 import {formatDate} from "utils";
 
 const Offer = () => {
