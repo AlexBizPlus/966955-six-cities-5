@@ -1,6 +1,6 @@
 import {HOTELS, HOTELS_UPDATE, HOTEL_OFFER, HOTELS_NEARBY, HOTEL_UPDATE, HOTELS_SORT} from './action-types';
 import {APIRoute} from '../../api/const';
-import {SortList} from 'const';
+import {SORT_LIST} from '../../const';
 
 export const fetchHotelsAction = () => (dispatch, _getState, api) => (
   api.get(APIRoute.HOTELS)
@@ -15,7 +15,7 @@ export const hotelsResolveAction = (hotels) => ({
   unsorted: hotels
 });
 
-export const hotelsUpdateAction = (hotels) => ({
+export const hotelsListUpdateAction = (hotels) => ({
   type: HOTELS_UPDATE,
   hotels,
 });
@@ -49,7 +49,7 @@ export const hotelNearbyResolveAction = (nearby) => ({
   nearby
 });
 
-export const hotelSortAction = (sort = SortList[0].id) => ({
+export const hotelSortAction = (sort = SORT_LIST[0].id) => ({
   type: HOTELS_SORT,
   sort
 });

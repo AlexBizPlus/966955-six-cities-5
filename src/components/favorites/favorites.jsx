@@ -1,16 +1,16 @@
 import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {connect, useSelector, useDispatch} from "react-redux";
-import {fetchHotelsAction} from 'hotelActions';
-import {setActiveCity} from 'cityActions';
-import {Routes, CitiesList} from 'const';
-import EmptyFavorites from "emptyFavorites";
-import Cards from "cards";
+import {fetchHotelsAction} from "../../store/actions/hotel-actions";
+import {setActiveCity} from "../../store/actions/city-actions";
+import {Routes, CITIES_LIST} from '../../const';
+import EmptyFavorites from "../empty-favorites/empty-favorites";
+import Cards from "../cards/cards";
 
 const Favorites = () => {
 
-  const login = useSelector((state) => state.user.login);
-  const offers = useSelector((state) => state.hotels.hotels);
+  const login = useSelector((state) => state.USER.login);
+  const offers = useSelector((state) => state.HOTELS.hotels);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const Favorites = () => {
                 <h1 className="favorites__title">Saved listing</h1>
                 <ul className="favorites__list">
 
-                  { CitiesList.map((city) => {
+                  { CITIES_LIST.map((city) => {
                     const offersList = offers.filter((item) => item.city.name === city && item.is_favorite);
 
                     if (offersList.length === 0) {
@@ -102,10 +102,10 @@ const Favorites = () => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({HOTELS, USER}) => {
   return {
-    hotels: state.hotels,
-    login: state.login
+    hotels: HOTELS.hotels,
+    login: USER.login
   };
 };
 

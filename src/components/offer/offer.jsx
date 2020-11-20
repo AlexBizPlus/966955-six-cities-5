@@ -1,23 +1,23 @@
 import React, {useEffect, useRef} from "react";
 import {Link, useParams} from 'react-router-dom';
 import {connect, useSelector, useDispatch} from "react-redux";
-import {fetchHotelNearbyAction, fetchHotelOfferAction} from "hotelActions";
-import {fetchReviewsAction} from "reviewsActions";
-import {favoriteAction, checkAuthAction} from "userActions";
-import {Routes, MAX_COMMENTS} from 'const';
+import {fetchHotelNearbyAction, fetchHotelOfferAction} from "../../store/actions/hotel-actions";
+import {fetchReviewsAction} from "../../store/actions/reviews-actions";
+import {favoriteAction, checkAuthAction} from "../../store/actions/user-actions";
+import {Routes, MAX_COMMENTS} from '../../const';
 import classNames from "classnames";
-import Cards from "cards";
-import Form from "form";
-import CityMap from "cityMap";
-import {formatDate} from "utils";
+import Cards from "../cards/cards";
+import Form from "../form/form";
+import CityMap from "../city-map/city-map";
+import {formatDate} from "../../utils";
 
 const Offer = () => {
 
-  const login = useSelector((state) => state.user.login);
-  const offer = useSelector((state) => state.hotels.offer);
-  const reviews = useSelector((state) => state.reviews.reviews);
-  const reviewsCount = useSelector((state) => state.reviews.reviewsCount);
-  const nearby = useSelector((state) => state.hotels.nearby);
+  const login = useSelector((state) => state.USER.login);
+  const offer = useSelector((state) => state.HOTELS.offer);
+  const nearby = useSelector((state) => state.HOTELS.nearby);
+  const reviews = useSelector((state) => state.REVIEWS.reviews);
+  const reviewsCount = useSelector((state) => state.REVIEWS.reviewsCount);
   const dispatch = useDispatch();
   const buttonRef = useRef();
   const {id} = useParams();
@@ -219,14 +219,13 @@ const Offer = () => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({HOTELS, USER, REVIEWS}) => {
   return {
-    hotels: state.hotels,
-    offer: state.offer,
-    nearby: state.nearby,
-    login: state.login,
-    reviewsCount: state.reviewsCount,
-    reviews: state.reviews
+    offer: HOTELS.offer,
+    nearby: HOTELS.nearby,
+    login: USER.login,
+    reviewsCount: REVIEWS.reviewsCount,
+    reviews: REVIEWS.reviews
   };
 };
 

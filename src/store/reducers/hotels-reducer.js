@@ -1,6 +1,6 @@
 import {HOTELS, HOTELS_UPDATE, HOTEL_OFFER, HOTELS_NEARBY, HOTEL_UPDATE, HOTELS_SORT} from '../actions/action-types';
-import {extend} from "utils";
-import {SortList} from "const";
+import {extend} from "../../utils";
+import {SORT_LIST} from "../../const";
 
 const initialState = {
   hotels: [],
@@ -8,7 +8,7 @@ const initialState = {
   offer: null,
   nearby: null,
   update: 0,
-  sort: SortList[0].id
+  sort: SORT_LIST[0].id
 };
 
 const hotelReducer = (state = initialState, action) => {

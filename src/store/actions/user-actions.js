@@ -1,7 +1,6 @@
-
 import {APIRoute} from "../../api/const";
 import {REQUIRED_AUTHORIZATION, REDIRECT_TO_ROUTE, SAVE_LOGIN} from "./action-types";
-import {AuthorizationStatus, Routes} from "const";
+import {AuthorizationStatus, Routes} from "../../const";
 
 export const requireAuthorizationAction = (status) => ({
   type: REQUIRED_AUTHORIZATION,
@@ -18,7 +17,7 @@ export const saveLoginAction = (login) => ({
   login,
 });
 
-export const checkAuthAction = () => (dispatch, _getState, api) => (
+export const checkAuthAction = () => (_dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then((data) => data)
     .catch((err) => err)

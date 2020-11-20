@@ -1,50 +1,50 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from 'react-router-dom';
 import {connect, useSelector, useDispatch} from "react-redux";
-import {fetchHotelsAction, hotelSortAction, hotelsUpdateAction} from "hotelActions";
+import {fetchHotelsAction, hotelSortAction, hotelsListUpdateAction} from "../../store/actions/hotel-actions";
 import classNames from "classnames";
-import Cards from "cards";
-import {Routes, SortList} from 'const';
-import {compareItemsPrice, compareItemRating} from 'utils';
-import CityMap from "cityMap";
-import Cities from "cities";
-import EmptyMain from "emptyMain";
+import Cards from "../cards/cards";
+import {Routes, SORT_LIST} from '../../const';
+import {compareItemsPrice, compareItemRating} from '../../utils';
+import CityMap from "../city-map/city-map";
+import Cities from "../cities/cities";
+import EmptyMain from "../empty-main/empty-main";
 import "./main.css";
 
 const Main = () => {
 
-  const sort = useSelector((state) => state.hotels.sort);
-  const login = useSelector((state) => state.user.login);
-  const activeCity = useSelector((state) => state.city.activeCity);
-  const offers = useSelector((state) => state.hotels.hotels).filter((item)=>item.city.name === activeCity);
-  const unsorted = useSelector((state) => state.hotels.unsorted).filter((item)=>item.city.name === activeCity);
+  const sort = useSelector((state) => state.HOTELS.sort);
+  const login = useSelector((state) => state.USER.login);
+  const activeCity = useSelector((state) => state.CITY.activeCity);
+  const offers = useSelector((state) => state.HOTELS.hotels).filter((item)=>item.city.name === activeCity);
+  const unsorted = useSelector((state) => state.HOTELS.unsorted).filter((item)=>item.city.name === activeCity);
   const dispatch = useDispatch();
   const selectRef = useRef();
   const selectListRef = useRef();
-  const [selectText, setSelectText] = useState(SortList[0].text);
+  const [selectText, setSelectText] = useState(SORT_LIST[0].text);
 
   useEffect(() => {
     dispatch(fetchHotelsAction());
-    setSelectText(SortList[0].text);
+    setSelectText(SORT_LIST[0].text);
     dispatch(hotelSortAction());
   }, [activeCity]);
 
   useEffect(() => {
     switch (sort) {
       case `low-to-high`:
-        dispatch(hotelsUpdateAction(offers.sort(compareItemsPrice)));
+        dispatch(hotelsListUpdateAction(offers.sort(compareItemsPrice)));
         break;
       case `high-to-low`:
-        dispatch(hotelsUpdateAction(offers.sort(compareItemsPrice).reverse()));
+        dispatch(hotelsListUpdateAction(offers.sort(compareItemsPrice).reverse()));
         break;
       case `top-rated`:
-        dispatch(hotelsUpdateAction(offers.sort(compareItemRating).reverse()));
+        dispatch(hotelsListUpdateAction(offers.sort(compareItemRating).reverse()));
         break;
       default:
-        dispatch(hotelsUpdateAction(unsorted));
+        dispatch(hotelsListUpdateAction(unsorted));
         break;
     }
-    setSelectText(SortList.find((item) => item.id === sort).text);
+    setSelectText(SORT_LIST.find((item) => item.id === sort).text);
   }, [sort]);
 
 
@@ -93,7 +93,7 @@ const Main = () => {
                     to={Routes.FAVORITES}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
+                    <span className="header__user-name user__name" >
                       {login}
                     </span>
                   </Link>
@@ -128,7 +128,6 @@ const Main = () => {
                         tabIndex="0"
                         ref={selectRef}
                       >
-                        {/* {SortList[0].text} */}
                         {selectText}
                         <svg className="places__sorting-arrow" width="7" height="4">
                           <use xlinkHref="#icon-arrow-select"></use>
@@ -140,7 +139,7 @@ const Main = () => {
                         ref={selectListRef}
                       >
                         {
-                          SortList.map(({id, text}, i) => {
+                          SORT_LIST.map(({id, text}, i) => {
                             return (
                               <li
                                 className={classNames(`places__option`, {[`places__option--active`]: i === 0})}
@@ -176,11 +175,13 @@ const Main = () => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({HOTELS, CITY, USER}) => {
   return {
-    hotels: state.hotels,
-    activeCity: state.activeCity,
-    login: state.login
+    sort: HOTELS.sort,
+    hotels: HOTELS.hotels,
+    activeCity: CITY.activeCity,
+    login: USER.login,
+    unsorted: HOTELS.unsorted
   };
 };
 
@@ -188,7 +189,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchHotelsAction: (hotels) => dispatch(fetchHotelsAction(hotels)),
     hotelSortAction: (sort) => dispatch(hotelSortAction(sort)),
-    hotelsUpdateAction: (sort) => dispatch(hotelsUpdateAction(sort)),
+    hotelsListUpdateAction: (sort) => dispatch(hotelsListUpdateAction(sort)),
   };
 };
 

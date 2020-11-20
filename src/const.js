@@ -1,5 +1,5 @@
 export const MAX_COMMENTS = 10;
-export const CitiesList = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
+export const CITIES_LIST = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
 
 export const ICON_URL = `../img/pin.svg`;
 export const ICON_ACTIVE_URL = `../img/pin-active.svg`;
@@ -22,7 +22,7 @@ export const CommentLength = {
   MAX: 300
 };
 
-export const SortList = [
+export const SORT_LIST = [
   {
     text: `Popular`,
     id: `popular`

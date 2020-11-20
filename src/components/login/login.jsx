@@ -1,8 +1,8 @@
 import React, {useRef} from "react";
 import {Link} from 'react-router-dom';
 import {connect, useDispatch} from "react-redux";
-import {loginAction} from "userActions";
-import {CitiesList, Routes} from 'const';
+import {loginAction} from "../../store/actions/user-actions";
+import {CITIES_LIST, Routes} from '../../const';
 
 const Login = () => {
 
@@ -74,7 +74,7 @@ const Login = () => {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link className="locations__item-link" to={Routes.HOME}>
-                <span>{CitiesList[0]}</span>
+                <span>{CITIES_LIST[0]}</span>
               </Link>
             </div>
           </section>

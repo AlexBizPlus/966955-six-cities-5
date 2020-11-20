@@ -27,18 +27,18 @@ npm i react@16.12 -E
 * @babel/preset-react@7.8          (ok)
 * @types/jest@25.1
 * @types/react@16.9
-* axios-mock-adapter@1.17
+* axios-mock-adapter@1.17          (ok)
 * babel-jest@25.1
 * babel-loader@8                   (ok)
-* enzyme@3.11
-* enzyme-adapter-react-16@1.15
+* enzyme@3.11                      (ok)
+* enzyme-adapter-react-16@1.15     (ok)
 * eslint@5.13                      (ok)
 * eslint-config-htmlacademy@0.5    (ok)
 * eslint-plugin-react@7.18         (ok)
-* jest@25.1
-* react-test-renderer@16.12
+* jest@25.1                        (ok)
+* react-test-renderer@16.12        (ok)
 * redux-devtools-extension@2.13
-* redux-mock-store@1.5
+* redux-mock-store@1.5             (ok)
 * webpack@4.41                     (ok)
 * webpack-cli@3.3                  (ok)
 * webpack-dev-server@3.10          (ok)

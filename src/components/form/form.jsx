@@ -1,23 +1,23 @@
 import React, {useRef, useEffect} from "react";
 import {connect, useSelector, useDispatch} from "react-redux";
-import {AuthorizationStatus, CommentLength} from "const";
+import {AuthorizationStatus, CommentLength} from "../../const";
 import {
   userReviewAction,
   userRatingAction,
   fetchReviewsPostAction,
   reviewLoadingAction,
   reviewErrorAction
-} from "reviewsActions";
+} from "../../store/actions/reviews-actions";
 import "./form.css";
 
 const Form = () => {
 
-  const authorizationStatus = useSelector((state) => state.user.authorizationStatus);
-  const offer = useSelector((state) => state.hotels.offer);
-  const review = useSelector((state) => state.reviews.review);
-  const rating = useSelector((state) => state.reviews.rating);
-  const isLoading = useSelector((state) => state.reviews.isLoading);
-  const isError = useSelector((state) => state.reviews.isError);
+  const authorizationStatus = useSelector((state) => state.USER.authorizationStatus);
+  const offer = useSelector((state) => state.HOTELS.offer);
+  const review = useSelector((state) => state.REVIEWS.review);
+  const rating = useSelector((state) => state.REVIEWS.rating);
+  const isLoading = useSelector((state) => state.REVIEWS.isLoading);
+  const isError = useSelector((state) => state.REVIEWS.isError);
   const dispatch = useDispatch();
   const buttonRef = useRef();
   const input5RatingRef = useRef();
@@ -202,11 +202,13 @@ const Form = () => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  offer: state.offer,
-  review: state.review,
-  rating: state.rating,
+const mapStateToProps = ({HOTELS, USER, REVIEWS}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  offer: HOTELS.offer,
+  review: REVIEWS.review,
+  rating: REVIEWS.rating,
+  isLoading: REVIEWS.isLoading,
+  isError: REVIEWS.isError
 });
 
 const mapDispatchToProps = (dispatch) => {

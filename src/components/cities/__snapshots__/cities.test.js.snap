@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Cities component Render Cities 1`] = `
+<ul
+  className="locations__list tabs__list"
+>
+  <li
+    className="locations__item"
+  >
+    <button
+      className="locations__item-link tabs__item button_link tabs__item--active"
+      onClick={[Function]}
+      type="button"
+      value="Paris"
+    >
+      <span>
+        Paris
+      </span>
+    </button>
+  </li>
+  <li
+    className="locations__item"
+  >
+    <button
+      className="locations__item-link tabs__item button_link"
+      onClick={[Function]}
+      type="button"
+      value="Cologne"
+    >
+      <span>
+        Cologne
+      </span>
+    </button>
+  </li>
+  <li
+    className="locations__item"
+  >
+    <button
+      className="locations__item-link tabs__item button_link"
+      onClick={[Function]}
+      type="button"
+      value="Brussels"
+    >
+      <span>
+        Brussels
+      </span>
+    </button>
+  </li>
+  <li
+    className="locations__item"
+  >
+    <button
+      className="locations__item-link tabs__item button_link"
+      onClick={[Function]}
+      type="button"
+      value="Amsterdam"
+    >
+      <span>
+        Amsterdam
+      </span>
+    </button>
+  </li>
+  <li
+    className="locations__item"
+  >
+    <button
+      className="locations__item-link tabs__item button_link"
+      onClick={[Function]}
+      type="button"
+      value="Hamburg"
+    >
+      <span>
+        Hamburg
+      </span>
+    </button>
+  </li>
+  <li
+    className="locations__item"
+  >
+    <button
+      className="locations__item-link tabs__item button_link"
+      onClick={[Function]}
+      type="button"
+      value="Dusseldorf"
+    >
+      <span>
+        Dusseldorf
+      </span>
+    </button>
+  </li>
+</ul>
+`;

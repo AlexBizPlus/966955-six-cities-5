@@ -1,23 +1,23 @@
 import React, {useEffect, useRef} from "react";
 import {connect, useSelector} from "react-redux";
-import {myPropTypes as PropTypes} from "prop";
+import {myPropTypes as PropTypes} from "../../prop";
 import L from "leaflet";
 import "./city-map.css";
-import {ICON_URL, ICON_ACTIVE_URL, ICON_SIZE} from "const";
+import {ICON_URL, ICON_ACTIVE_URL, ICON_SIZE} from "../../const";
 
 
 const CityMap = ({mode}) => {
 
-  const activeCity = useSelector((state) => state.city.activeCity);
-  const offer = useSelector((state) => state.hotels.offer);
+  const activeCity = useSelector((state) => state.CITY.activeCity);
+  const offer = useSelector((state) => state.HOTELS.offer);
   const mapElement = useRef();
 
   const offers = mode === `cities`
-    ? useSelector((state) => state.hotels.hotels).filter((item) => item.city.name === activeCity)
-    : useSelector((state) => state.hotels.nearby);
+    ? useSelector((state) => state.HOTELS.hotels).filter((item) => item.city.name === activeCity)
+    : useSelector((state) => state.HOTELS.nearby);
 
   const hover = mode === `cities`
-    ? useSelector((state) => state.map.hover)
+    ? useSelector((state) => state.MAP.hover)
     : [0, 0];
 
   useEffect(() => {
@@ -80,12 +80,13 @@ CityMap.propTypes = {
   mode: PropTypes.mode,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({HOTELS, CITY, MAP}) => {
   return {
-    hotels: state.hotels,
-    activeCity: state.activeCity,
-    hover: state.hover,
-    nearby: state.nearby,
+    hotels: HOTELS.hotels,
+    nearby: HOTELS.nearby,
+    offer: HOTELS.offer,
+    activeCity: CITY.activeCity,
+    hover: MAP.hover,
   };
 };
 

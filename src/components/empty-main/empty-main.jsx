@@ -3,7 +3,7 @@ import {connect, useSelector} from "react-redux";
 
 const EmptyMain = () => {
 
-  const activeCity = useSelector((state) => state.city.activeCity);
+  const activeCity = useSelector((state) => state.CITY.activeCity);
 
   return (
     <div className="cities__places-container cities__places-container--empty container page__main--index-empty">
@@ -18,9 +18,9 @@ const EmptyMain = () => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({CITY}) => {
   return {
-    activeCity: state.activeCity,
+    activeCity: CITY.activeCity,
   };
 };
 
