@@ -3,13 +3,14 @@ import {Link, useParams} from 'react-router-dom';
 import {connect, useSelector, useDispatch} from "react-redux";
 import {fetchHotelNearbyAction, fetchHotelOfferAction} from "../../store/actions/hotel-actions";
 import {fetchReviewsAction} from "../../store/actions/reviews-actions";
-import {favoriteAction, checkAuthAction} from "../../store/actions/user-actions";
+import {favoriteAction} from "../../store/actions/user-actions";
 import {Routes, MAX_COMMENTS} from '../../const';
 import classNames from "classnames";
 import Cards from "../cards/cards";
 import Form from "../form/form";
 import CityMap from "../city-map/city-map";
 import {formatDate} from "../../utils";
+import {mapStateToProps, mapDispatchToProps} from "./offer.connect";
 
 const Offer = () => {
 
@@ -217,26 +218,6 @@ const Offer = () => {
       </main>
     </div>
   );
-};
-
-const mapStateToProps = ({HOTELS, USER, REVIEWS}) => {
-  return {
-    offer: HOTELS.offer,
-    nearby: HOTELS.nearby,
-    login: USER.login,
-    reviewsCount: REVIEWS.reviewsCount,
-    reviews: REVIEWS.reviews
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchHotelOfferAction: (offer) => dispatch(fetchHotelOfferAction(offer)),
-    fetchReviewsAction: (reviews) => dispatch(fetchReviewsAction(reviews)),
-    fetchHotelNearbyAction: (nearby) => dispatch(fetchHotelNearbyAction(nearby)),
-    favoriteAction: ()=> dispatch(favoriteAction()),
-    checkAuthAction: ()=> dispatch(checkAuthAction())
-  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Offer);

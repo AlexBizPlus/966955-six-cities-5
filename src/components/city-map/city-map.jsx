@@ -4,6 +4,7 @@ import {myPropTypes as PropTypes} from "../../prop";
 import L from "leaflet";
 import "./city-map.css";
 import {ICON_URL, ICON_ACTIVE_URL, ICON_SIZE} from "../../const";
+import mapStateToProps from "./city-map.connect";
 
 
 const CityMap = ({mode}) => {
@@ -78,16 +79,6 @@ const CityMap = ({mode}) => {
 
 CityMap.propTypes = {
   mode: PropTypes.mode,
-};
-
-const mapStateToProps = ({HOTELS, CITY, MAP}) => {
-  return {
-    hotels: HOTELS.hotels,
-    nearby: HOTELS.nearby,
-    offer: HOTELS.offer,
-    activeCity: CITY.activeCity,
-    hover: MAP.hover,
-  };
 };
 
 export default connect(mapStateToProps, null)(CityMap);

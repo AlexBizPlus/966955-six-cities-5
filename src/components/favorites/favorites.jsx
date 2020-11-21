@@ -1,21 +1,27 @@
 import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {connect, useSelector, useDispatch} from "react-redux";
-import {fetchHotelsAction} from "../../store/actions/hotel-actions";
+import {fetchHotelsAction, hotelsListUpdateAction} from "../../store/actions/hotel-actions";
 import {setActiveCity} from "../../store/actions/city-actions";
 import {Routes, CITIES_LIST} from '../../const';
 import EmptyFavorites from "../empty-favorites/empty-favorites";
 import Cards from "../cards/cards";
+import {mapStateToProps, mapDispatchToProps} from "./favorites.connect";
 
 const Favorites = () => {
 
   const login = useSelector((state) => state.USER.login);
   const offers = useSelector((state) => state.HOTELS.hotels);
+  const update = useSelector((state) => state.HOTELS.update);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchHotelsAction());
   }, []);
+
+  useEffect(() => {
+    dispatch(hotelsListUpdateAction(offers));
+  }, [update]);
 
   if (!offers) {
     return (<div>Loading</div>);
@@ -102,19 +108,4 @@ const Favorites = () => {
   );
 };
 
-const mapStateToProps = ({HOTELS, USER}) => {
-  return {
-    hotels: HOTELS.hotels,
-    login: USER.login
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchHotelsAction: (hotels) => dispatch(fetchHotelsAction(hotels)),
-    setActiveCity: (city) => dispatch(setActiveCity(city))
-  };
-};
-
 export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
-

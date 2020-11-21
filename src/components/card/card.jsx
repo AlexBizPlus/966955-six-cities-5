@@ -7,6 +7,7 @@ import {myPropTypes as PropTypes} from "../../prop";
 import classNames from "classnames";
 import {Link} from 'react-router-dom';
 import {Routes} from '../../const';
+import mapDispatchToProps from './card.connect';
 
 const Card = ({offer, classes, style}) => {
 
@@ -104,14 +105,6 @@ Card.propTypes = {
   offer: PropTypes.offer,
   classes: PropTypes.classes,
   style: PropTypes.style,
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    hoverHotelAction: (hover) => dispatch(hoverHotelAction(hover)),
-    hotelUpdateAction: () => dispatch(hotelUpdateAction()),
-    favoriteAction: ()=> dispatch(favoriteAction())
-  };
 };
 
 export default connect(null, mapDispatchToProps)(Card);

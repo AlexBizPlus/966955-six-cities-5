@@ -1,5 +1,6 @@
 import React from "react";
 import {connect, useSelector} from "react-redux";
+import mapStateToProps from "./empty-main.connect";
 
 const EmptyMain = () => {
 
@@ -16,12 +17,6 @@ const EmptyMain = () => {
       <div className="cities__right-section"></div>
     </div>
   );
-};
-
-const mapStateToProps = ({CITY}) => {
-  return {
-    activeCity: CITY.activeCity,
-  };
 };
 
 export default connect(mapStateToProps, null)(EmptyMain);

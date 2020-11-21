@@ -4,6 +4,7 @@ import {setActiveCity} from "../../store/actions/city-actions";
 import classNames from "classnames";
 import {CITIES_LIST} from "../../const";
 import "./cities.css";
+import mapDispatchToProps from "./cities.connect";
 
 const Cities = () => {
 
@@ -34,8 +35,5 @@ const mapStateToProps = ({CITY}) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {setActiveCity: (city) => dispatch(setActiveCity(city))};
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cities);

@@ -10,10 +10,12 @@ import CityMap from "../city-map/city-map";
 import Cities from "../cities/cities";
 import EmptyMain from "../empty-main/empty-main";
 import "./main.css";
+import {mapStateToProps, mapDispatchToProps} from "./main.connect";
 
 const Main = () => {
 
   const sort = useSelector((state) => state.HOTELS.sort);
+  const update = useSelector((state) => state.HOTELS.update);
   const login = useSelector((state) => state.USER.login);
   const activeCity = useSelector((state) => state.CITY.activeCity);
   const offers = useSelector((state) => state.HOTELS.hotels).filter((item)=>item.city.name === activeCity);
@@ -28,6 +30,17 @@ const Main = () => {
     setSelectText(SORT_LIST[0].text);
     dispatch(hotelSortAction());
   }, [activeCity]);
+
+  useEffect(() => {
+    switch (sort) {
+      case `popular`:
+        dispatch(hotelsListUpdateAction(unsorted));
+        break;
+      default:
+        dispatch(hotelsListUpdateAction(offers));
+        break;
+    }
+  }, [update]);
 
   useEffect(() => {
     switch (sort) {
@@ -173,24 +186,6 @@ const Main = () => {
       </main>
     </div>
   );
-};
-
-const mapStateToProps = ({HOTELS, CITY, USER}) => {
-  return {
-    sort: HOTELS.sort,
-    hotels: HOTELS.hotels,
-    activeCity: CITY.activeCity,
-    login: USER.login,
-    unsorted: HOTELS.unsorted
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchHotelsAction: (hotels) => dispatch(fetchHotelsAction(hotels)),
-    hotelSortAction: (sort) => dispatch(hotelSortAction(sort)),
-    hotelsListUpdateAction: (sort) => dispatch(hotelsListUpdateAction(sort)),
-  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

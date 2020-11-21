@@ -9,6 +9,7 @@ import {
   reviewErrorAction
 } from "../../store/actions/reviews-actions";
 import "./form.css";
+import {mapStateToProps, mapDispatchToProps} from "./form.connect";
 
 const Form = () => {
 
@@ -200,25 +201,6 @@ const Form = () => {
       </div>
     </form>
   );
-};
-
-const mapStateToProps = ({HOTELS, USER, REVIEWS}) => ({
-  authorizationStatus: USER.authorizationStatus,
-  offer: HOTELS.offer,
-  review: REVIEWS.review,
-  rating: REVIEWS.rating,
-  isLoading: REVIEWS.isLoading,
-  isError: REVIEWS.isError
-});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    userReviewAction: (review) => dispatch(userReviewAction(review)),
-    userRatingAction: (rating) => dispatch(userRatingAction(rating)),
-    fetchReviewsPostAction: (params) => dispatch(fetchReviewsPostAction(params)),
-    reviewLoadingAction: (isLoading)=> dispatch(reviewLoadingAction(isLoading)),
-    reviewErrorAction: (isError)=> dispatch(reviewErrorAction(isError))
-  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

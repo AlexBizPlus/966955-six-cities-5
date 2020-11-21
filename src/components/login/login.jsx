@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect, useDispatch} from "react-redux";
 import {loginAction} from "../../store/actions/user-actions";
 import {CITIES_LIST, Routes} from '../../const';
+import mapDispatchToProps from './login.connect';
 
 const Login = () => {
 
@@ -82,12 +83,6 @@ const Login = () => {
       </main>
     </div>
   );
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loginAction: (params) => dispatch(loginAction(params)),
-  };
 };
 
 export default connect(null, mapDispatchToProps)(Login);
