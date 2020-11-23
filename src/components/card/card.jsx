@@ -1,13 +1,12 @@
 import React, {useRef} from "react";
-import {connect, useDispatch} from "react-redux";
-import {hoverHotelAction} from "../../store/actions/map-actions";
-import {hotelUpdateAction} from "../../store/actions/hotel-actions";
-import {favoriteAction} from "../../store/actions/user-actions";
-import {myPropTypes as PropTypes} from "../../prop";
+import {useDispatch} from "react-redux";
+import {hoverHotelAction} from "@actions/map-actions";
+import {hotelUpdateAction} from "@actions/hotel-actions";
+import {favoriteAction} from "@actions/user-actions";
+import {myPropTypes as PropTypes} from "@prop";
 import classNames from "classnames";
 import {Link} from 'react-router-dom';
-import {Routes} from '../../const';
-import mapDispatchToProps from './card.connect';
+import {Routes} from '@const';
 
 const Card = ({offer, classes, style}) => {
 
@@ -24,7 +23,7 @@ const Card = ({offer, classes, style}) => {
   const buttonStyle = {
     "place-card__bookmark-button": true,
     "button": true,
-    "place-card__bookmark-button--active": offer[`is_favorite`]
+    "place-card__bookmark-button--active": offer[`is_favorite`],
   };
 
   const linkStyle = {
@@ -44,7 +43,7 @@ const Card = ({offer, classes, style}) => {
   return (
     <article
       onMouseOver={() => {
-        dispatch(hoverHotelAction([offer.location.latitude, offer.location.longitude]));
+        dispatch(hoverHotelAction([offer[`location`][`latitude`], offer[`location`][`longitude`]]));
       }}
       className={classes.join(` `)}
     >
@@ -107,4 +106,4 @@ Card.propTypes = {
   style: PropTypes.style,
 };
 
-export default connect(null, mapDispatchToProps)(Card);
+export default Card;

@@ -1,6 +1,6 @@
 import React, {useRef, useEffect} from "react";
-import {connect, useSelector, useDispatch} from "react-redux";
-import {AuthorizationStatus, CommentLength} from "../../const";
+import {useSelector, useDispatch} from "react-redux";
+import {AuthorizationStatus, CommentLength} from "@const";
 import {
   userReviewAction,
   userRatingAction,
@@ -9,7 +9,6 @@ import {
   reviewErrorAction
 } from "../../store/actions/reviews-actions";
 import "./form.css";
-import {mapStateToProps, mapDispatchToProps} from "./form.connect";
 
 const Form = () => {
 
@@ -50,6 +49,10 @@ const Form = () => {
     }
   }, [isError]);
 
+  useEffect(() => {
+
+  }, []);
+
   const handleMessageClick = () => {
     errorMessageRef.current.classList.add(`no-display`);
     dispatch(reviewLoadingAction(false));
@@ -68,18 +71,22 @@ const Form = () => {
     textareaRef.current.value = ``;
   };
 
+
   const handleFormChange = (evt) => {
     const {name, value} = evt.target;
     switch (name) {
       case `review`:
-        buttonRef.current.disabled = true;
-        if (rating && value.length >= CommentLength.MIN && value.length <= CommentLength.MAX) {
+        if (rating && value.length >= CommentLength.MIN) {
           dispatch(userReviewAction(value));
           buttonRef.current.disabled = false;
         }
         break;
       case `rating`:
         dispatch(userRatingAction(value));
+        if (textareaRef.current.value.length >= CommentLength.MIN) {
+          dispatch(userReviewAction(textareaRef.current.value));
+          buttonRef.current.disabled = false;
+        }
         break;
       default:
         return;
@@ -176,6 +183,7 @@ const Form = () => {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         ref={textareaRef}
+        maxLength={CommentLength.MAX}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -203,4 +211,4 @@ const Form = () => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default Form;

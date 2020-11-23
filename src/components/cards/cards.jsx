@@ -1,6 +1,6 @@
 import React from "react";
-import {myPropTypes as PropTypes} from "../../prop";
-import Card from "../card/card";
+import {myPropTypes as PropTypes} from "@prop";
+import Card from "@card";
 
 const Cards = ({offers, classes, style}) => {
 

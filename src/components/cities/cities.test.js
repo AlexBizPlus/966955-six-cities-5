@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import Cities from "./cities";
+import Cities from "@cities";
 
 describe(`Render Cities component`, () => {
 

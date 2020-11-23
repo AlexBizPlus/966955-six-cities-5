@@ -4,15 +4,11 @@ import {createStore, applyMiddleware, compose} from "redux";
 import {Provider} from "react-redux";
 import thunk from 'redux-thunk';
 import {createAPI} from "./api/api";
-import {requireAuthorizationAction} from "./store/actions/user-actions";
 import {redirect} from "./store/reducers/user-reducer";
-import {AuthorizationStatus} from "./const";
-import App from "app";
+import App from "@app";
 import rootReducers from './store/reducers/root-reducer';
 
-const api = createAPI(
-    () => store.dispatch(requireAuthorizationAction(AuthorizationStatus.NO_AUTH))
-);
+const api = createAPI();
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducers,

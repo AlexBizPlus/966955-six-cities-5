@@ -1,5 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Switch, Route, Router, Redirect} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {checkAuthAction} from "@actions/user-actions";
 import {Routes} from "../../const";
 import Main from "../main/main";
 import Login from "../login/login";
@@ -9,6 +11,14 @@ import Offer from "../offer/offer";
 import PrivateRoute from "../private-route/private-route";
 
 const App = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuthAction());
+  }, []);
+
+
   return (
     <Router history={browserHistory}>
       <Switch>

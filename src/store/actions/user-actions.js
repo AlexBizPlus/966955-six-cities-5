@@ -17,16 +17,17 @@ export const saveLoginAction = (login) => ({
   login,
 });
 
-export const checkAuthAction = () => (_dispatch, _getState, api) => (
+export const checkAuthAction = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then((data) => data)
-    .catch((err) => err)
+    .then((res) => dispatch(saveLoginAction(res.data.email)))
+    .then(() => dispatch(requireAuthorizationAction(AuthorizationStatus.AUTH)))
+    .catch(() => dispatch(requireAuthorizationAction(AuthorizationStatus.NO_AUTH)))
 );
 
 export const loginAction = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
     .then(() => dispatch(requireAuthorizationAction(AuthorizationStatus.AUTH)))
-    .then(() => dispatch(redirectAction(Routes.FAVORITES)))
+    .then(() => dispatch(redirectAction(Routes.HOME)))
     .then(() => dispatch(saveLoginAction(email)))
 );
 

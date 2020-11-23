@@ -99,5 +99,5 @@ export const myPropTypes = {
 
   render: PropTypes.func.isRequired,
 
-  component: PropTypes.object.isRequired,
+  component: PropTypes.func.isRequired,
 };

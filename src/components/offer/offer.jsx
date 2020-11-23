@@ -1,16 +1,15 @@
 import React, {useEffect, useRef} from "react";
 import {Link, useParams} from 'react-router-dom';
-import {connect, useSelector, useDispatch} from "react-redux";
-import {fetchHotelNearbyAction, fetchHotelOfferAction} from "../../store/actions/hotel-actions";
-import {fetchReviewsAction} from "../../store/actions/reviews-actions";
-import {favoriteAction} from "../../store/actions/user-actions";
-import {Routes, MAX_COMMENTS} from '../../const';
+import {useSelector, useDispatch} from "react-redux";
+import {fetchHotelNearbyAction, fetchHotelOfferAction, hotelNearbyResolveAction} from "@actions/hotel-actions";
+import {fetchReviewsAction} from "@actions/reviews-actions";
+import {favoriteAction} from "@actions/user-actions";
+import {Routes, MAX_COMMENTS} from '@const';
 import classNames from "classnames";
 import Cards from "../cards/cards";
-import Form from "../form/form";
-import CityMap from "../city-map/city-map";
-import {formatDate} from "../../utils";
-import {mapStateToProps, mapDispatchToProps} from "./offer.connect";
+import Form from "@form";
+import CityMap from "@cityMap";
+import {formatDate} from "@utils";
 
 const Offer = () => {
 
@@ -18,6 +17,7 @@ const Offer = () => {
   const offer = useSelector((state) => state.HOTELS.offer);
   const nearby = useSelector((state) => state.HOTELS.nearby);
   const reviews = useSelector((state) => state.REVIEWS.reviews);
+  const update = useSelector((state) => state.HOTELS.update);
   const reviewsCount = useSelector((state) => state.REVIEWS.reviewsCount);
   const dispatch = useDispatch();
   const buttonRef = useRef();
@@ -28,6 +28,10 @@ const Offer = () => {
     dispatch(fetchReviewsAction(id));
     dispatch(fetchHotelNearbyAction(id));
   }, [id]);
+
+  useEffect(() => {
+    dispatch(hotelNearbyResolveAction(nearby));
+  }, [update]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -220,4 +224,4 @@ const Offer = () => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Offer);
+export default Offer;

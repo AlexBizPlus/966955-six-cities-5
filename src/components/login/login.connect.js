@@ -1,4 +1,6 @@
-import {loginAction} from "../../store/actions/user-actions";
+import {connect} from "react-redux";
+import {loginAction} from "@actions/user-actions";
+import Login from "./login";
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -6,4 +8,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default mapDispatchToProps;
+export default connect(null, mapDispatchToProps)(Login);

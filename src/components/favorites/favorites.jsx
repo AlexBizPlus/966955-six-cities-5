@@ -1,12 +1,11 @@
 import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
-import {connect, useSelector, useDispatch} from "react-redux";
-import {fetchHotelsAction, hotelsListUpdateAction} from "../../store/actions/hotel-actions";
-import {setActiveCity} from "../../store/actions/city-actions";
-import {Routes, CITIES_LIST} from '../../const';
-import EmptyFavorites from "../empty-favorites/empty-favorites";
-import Cards from "../cards/cards";
-import {mapStateToProps, mapDispatchToProps} from "./favorites.connect";
+import {useSelector, useDispatch} from "react-redux";
+import {fetchHotelsAction, hotelsListUpdateAction} from "@actions/hotel-actions";
+import {setActiveCity} from "@actions/city-actions";
+import {Routes, CITIES_LIST} from '@const';
+import EmptyFavorites from "@emptyFavorites";
+import Cards from "@cards";
 
 const Favorites = () => {
 
@@ -108,4 +107,4 @@ const Favorites = () => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default Favorites;

@@ -1,7 +1,15 @@
-import {setActiveCity} from "../../store/actions/city-actions";
+import {connect} from "react-redux";
+import {setActiveCity} from "@actions/city-actions";
+import Cities from "./cities";
 
 const mapDispatchToProps = (dispatch) => {
   return {setActiveCity: (city) => dispatch(setActiveCity(city))};
 };
 
-export default mapDispatchToProps;
+const mapStateToProps = ({CITY}) => {
+  return {
+    activeCity: CITY.activeCity
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cities);

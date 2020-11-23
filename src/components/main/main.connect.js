@@ -1,6 +1,8 @@
+import {connect} from "react-redux";
 import {fetchHotelsAction, hotelSortAction, hotelsListUpdateAction} from "../../store/actions/hotel-actions";
+import Main from "./main";
 
-export const mapStateToProps = ({HOTELS, CITY, USER}) => {
+const mapStateToProps = ({HOTELS, CITY, USER}) => {
   return {
     sort: HOTELS.sort,
     hotels: HOTELS.hotels,
@@ -11,10 +13,12 @@ export const mapStateToProps = ({HOTELS, CITY, USER}) => {
   };
 };
 
-export const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchHotelsAction: (hotels) => dispatch(fetchHotelsAction(hotels)),
     hotelSortAction: (sort) => dispatch(hotelSortAction(sort)),
     hotelsListUpdateAction: (sort) => dispatch(hotelsListUpdateAction(sort)),
   };
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

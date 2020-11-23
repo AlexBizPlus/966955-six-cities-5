@@ -1,11 +1,9 @@
 import React, {useEffect, useRef} from "react";
-import {connect, useSelector} from "react-redux";
-import {myPropTypes as PropTypes} from "../../prop";
+import {useSelector} from "react-redux";
+import {myPropTypes as PropTypes} from "@prop";
 import L from "leaflet";
 import "./city-map.css";
-import {ICON_URL, ICON_ACTIVE_URL, ICON_SIZE} from "../../const";
-import mapStateToProps from "./city-map.connect";
-
+import {ICON_URL, ICON_ACTIVE_URL, ICON_SIZE} from "@const";
 
 const CityMap = ({mode}) => {
 
@@ -81,4 +79,4 @@ CityMap.propTypes = {
   mode: PropTypes.mode,
 };
 
-export default connect(mapStateToProps, null)(CityMap);
+export default CityMap;

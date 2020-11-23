@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import Login from './login';
+import Login from '@login';
 import {Router} from "react-router-dom";
 import {createBrowserHistory} from "history";
 

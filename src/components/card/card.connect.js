@@ -1,6 +1,8 @@
-import {hoverHotelAction} from "../../store/actions/map-actions";
-import {hotelUpdateAction} from "../../store/actions/hotel-actions";
-import {favoriteAction} from "../../store/actions/user-actions";
+import {connect} from "react-redux";
+import {hoverHotelAction} from "@actions/map-actions";
+import {hotelUpdateAction} from "@actions/hotel-actions";
+import {favoriteAction} from "@actions/user-actions";
+import Card from "./card";
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -10,4 +12,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default mapDispatchToProps;
+export default connect(null, mapDispatchToProps)(Card);

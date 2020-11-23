@@ -1,3 +1,4 @@
+import {connect} from "react-redux";
 import {
   userReviewAction,
   userRatingAction,
@@ -5,8 +6,9 @@ import {
   reviewLoadingAction,
   reviewErrorAction
 } from "../../store/actions/reviews-actions";
+import Form from "./form";
 
-export const mapStateToProps = ({HOTELS, USER, REVIEWS}) => ({
+const mapStateToProps = ({HOTELS, USER, REVIEWS}) => ({
   authorizationStatus: USER.authorizationStatus,
   offer: HOTELS.offer,
   review: REVIEWS.review,
@@ -15,7 +17,7 @@ export const mapStateToProps = ({HOTELS, USER, REVIEWS}) => ({
   isError: REVIEWS.isError
 });
 
-export const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     userReviewAction: (review) => dispatch(userReviewAction(review)),
     userRatingAction: (rating) => dispatch(userRatingAction(rating)),
@@ -24,3 +26,5 @@ export const mapDispatchToProps = (dispatch) => {
     reviewErrorAction: (isError)=> dispatch(reviewErrorAction(isError))
   };
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

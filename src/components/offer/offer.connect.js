@@ -1,8 +1,10 @@
-import {fetchHotelNearbyAction, fetchHotelOfferAction} from "../../store/actions/hotel-actions";
-import {fetchReviewsAction} from "../../store/actions/reviews-actions";
-import {favoriteAction} from "../../store/actions/user-actions";
+import {connect} from "react-redux";
+import {fetchHotelNearbyAction, fetchHotelOfferAction, hotelNearbyResolveAction} from "@actions/hotel-actions";
+import {fetchReviewsAction} from "@actions/reviews-actions";
+import {favoriteAction} from "@actions/user-actions";
+import Offer from "./offer";
 
-export const mapStateToProps = ({HOTELS, USER, REVIEWS}) => {
+const mapStateToProps = ({HOTELS, USER, REVIEWS}) => {
   return {
     offer: HOTELS.offer,
     nearby: HOTELS.nearby,
@@ -13,11 +15,14 @@ export const mapStateToProps = ({HOTELS, USER, REVIEWS}) => {
   };
 };
 
-export const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchHotelOfferAction: (offer) => dispatch(fetchHotelOfferAction(offer)),
     fetchReviewsAction: (reviews) => dispatch(fetchReviewsAction(reviews)),
     fetchHotelNearbyAction: (nearby) => dispatch(fetchHotelNearbyAction(nearby)),
+    hotelNearbyResolveAction: (nearby) => dispatch(hotelNearbyResolveAction(nearby)),
     favoriteAction: ()=> dispatch(favoriteAction()),
   };
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Offer);

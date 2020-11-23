@@ -50,7 +50,23 @@
   "jest": {
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less)$": "identity-obj-proxy"
+      "\\.(css|less)$": "identity-obj-proxy",
+      "^@app(.*)": "<rootDir>/src/components/app/app.jsx",
+      "^@main(.*)": "<rootDir>/src/components/main/main.connect.js",
+      "^@offer(.*)": "<rootDir>/src/components/offer/offer.connect.js",
+      "^@login(.*)": "<rootDir>/src/components/login/login.connect.js",
+      "^@favorites(.*)": "<rootDir>/src/components/favorites/favorites.connect.js",
+      "^@card(.*)": "<rootDir>/src/components/card/card.connect.js",
+      "^@cards(.*)": "<rootDir>/src/components/cards/cards.jsx",
+      "^@form(.*)": "<rootDir>/src/components/form/form.connect.js",
+      "^@cityMap(.*)": "<rootDir>/src/components/city-map/city-map.connect.js",
+      "^@cities(.*)": "<rootDir>/src/components/cities/cities.connect.js",
+      "^@emptyFavorites(.*)": "<rootDir>/src/components/empty-favorites/empty-favorites.jsx",
+      "^@emptyMain(.*)": "<rootDir>/src/components/empty-main/empty-main.connect.js",
+      "^@const(.*)": "<rootDir>/src/const.js",
+      "^@prop(.*)": "<rootDir>/src/prop.js",
+      "^@utils(.*)": "<rootDir>/src/utils.js",
+      "^@actions(.*)": "<rootDir>/src/store/actions/$1"
     }
   }
 }

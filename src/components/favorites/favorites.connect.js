@@ -1,7 +1,9 @@
-import {fetchHotelsAction, hotelsListUpdateAction} from "../../store/actions/hotel-actions";
-import {setActiveCity} from "../../store/actions/city-actions";
+import {connect} from "react-redux";
+import {fetchHotelsAction, hotelsListUpdateAction} from "@actions/hotel-actions";
+import Favorites from "./favorites";
+import {setActiveCity} from "@actions/city-actions";
 
-export const mapStateToProps = ({HOTELS, USER}) => {
+const mapStateToProps = ({HOTELS, USER}) => {
   return {
     hotels: HOTELS.hotels,
     update: HOTELS.update,
@@ -9,10 +11,12 @@ export const mapStateToProps = ({HOTELS, USER}) => {
   };
 };
 
-export const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fetchHotelsAction: (hotels) => dispatch(fetchHotelsAction(hotels)),
     hotelsListUpdateAction: (hotels) => dispatch(hotelsListUpdateAction(hotels)),
     setActiveCity: (city) => dispatch(setActiveCity(city))
   };
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

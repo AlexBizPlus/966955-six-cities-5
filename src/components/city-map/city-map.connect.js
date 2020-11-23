@@ -1,3 +1,6 @@
+import {connect} from "react-redux";
+import CityMap from "./city-map";
+
 const mapStateToProps = ({HOTELS, CITY, MAP}) => {
   return {
     hotels: HOTELS.hotels,
@@ -8,4 +11,4 @@ const mapStateToProps = ({HOTELS, CITY, MAP}) => {
   };
 };
 
-export default mapStateToProps;
+export default connect(mapStateToProps, null)(CityMap);

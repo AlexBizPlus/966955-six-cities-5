@@ -1,9 +1,8 @@
 import React, {useRef} from "react";
 import {Link} from 'react-router-dom';
-import {connect, useDispatch} from "react-redux";
-import {loginAction} from "../../store/actions/user-actions";
-import {CITIES_LIST, Routes} from '../../const';
-import mapDispatchToProps from './login.connect';
+import {useDispatch} from "react-redux";
+import {loginAction} from "@actions/user-actions";
+import {CITIES_LIST, Routes} from '@const';
 
 const Login = () => {
 
@@ -85,4 +84,4 @@ const Login = () => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;

@@ -1,16 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from 'react-router-dom';
-import {connect, useSelector, useDispatch} from "react-redux";
-import {fetchHotelsAction, hotelSortAction, hotelsListUpdateAction} from "../../store/actions/hotel-actions";
+import {useSelector, useDispatch} from "react-redux";
+import {fetchHotelsAction, hotelSortAction, hotelsListUpdateAction} from "@actions/hotel-actions";
 import classNames from "classnames";
-import Cards from "../cards/cards";
-import {Routes, SORT_LIST} from '../../const';
-import {compareItemsPrice, compareItemRating} from '../../utils';
-import CityMap from "../city-map/city-map";
-import Cities from "../cities/cities";
-import EmptyMain from "../empty-main/empty-main";
+import Cards from "@cards";
+import {Routes, SORT_LIST} from '@const';
+import {compareItemsPrice, compareItemRating} from '@utils';
+import CityMap from "@cityMap";
+import Cities from "@cities";
+import EmptyMain from "@emptyMain";
 import "./main.css";
-import {mapStateToProps, mapDispatchToProps} from "./main.connect";
 
 const Main = () => {
 
@@ -23,17 +22,20 @@ const Main = () => {
   const dispatch = useDispatch();
   const selectRef = useRef();
   const selectListRef = useRef();
-  const [selectText, setSelectText] = useState(SORT_LIST[0].text);
+
+  const [sortByPopular, sortByPriceLowToHigh, sortByPriceHighToLow, sortByTopRated] = SORT_LIST;
+  const [selectText, setSelectText] = useState(sortByPopular.text);
+
 
   useEffect(() => {
     dispatch(fetchHotelsAction());
-    setSelectText(SORT_LIST[0].text);
+    setSelectText(sortByPopular.text);
     dispatch(hotelSortAction());
   }, [activeCity]);
 
   useEffect(() => {
     switch (sort) {
-      case `popular`:
+      case sortByPopular.id:
         dispatch(hotelsListUpdateAction(unsorted));
         break;
       default:
@@ -44,13 +46,13 @@ const Main = () => {
 
   useEffect(() => {
     switch (sort) {
-      case `low-to-high`:
+      case sortByPriceLowToHigh.id:
         dispatch(hotelsListUpdateAction(offers.sort(compareItemsPrice)));
         break;
-      case `high-to-low`:
+      case sortByPriceHighToLow.id:
         dispatch(hotelsListUpdateAction(offers.sort(compareItemsPrice).reverse()));
         break;
-      case `top-rated`:
+      case sortByTopRated.id:
         dispatch(hotelsListUpdateAction(offers.sort(compareItemRating).reverse()));
         break;
       default:
@@ -188,4 +190,4 @@ const Main = () => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

@@ -1,10 +1,9 @@
 import React from "react";
-import {connect, useSelector, useDispatch} from "react-redux";
-import {setActiveCity} from "../../store/actions/city-actions";
+import {useSelector, useDispatch} from "react-redux";
+import {setActiveCity} from "@actions/city-actions";
 import classNames from "classnames";
-import {CITIES_LIST} from "../../const";
+import {CITIES_LIST} from "@const";
 import "./cities.css";
-import mapDispatchToProps from "./cities.connect";
 
 const Cities = () => {
 
@@ -29,11 +28,4 @@ const Cities = () => {
   );
 };
 
-const mapStateToProps = ({CITY}) => {
-  return {
-    activeCity: CITY.activeCity
-  };
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cities);
+export default Cities;

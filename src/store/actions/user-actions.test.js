@@ -47,14 +47,23 @@ describe(`Action creators for user-actions work correctly`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const checkAuthLoader = checkAuthAction();
+    const login = `email`;
 
     apiMock
       .onGet(APIRoute.LOGIN)
-      .reply(200, [{data: `data`}]);
+      .reply(200, {email: login});
 
     return checkAuthLoader(dispatch, () => { }, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(0);
+        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: SAVE_LOGIN,
+          login
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: REQUIRED_AUTHORIZATION,
+          status
+        });
       });
   });
 
@@ -78,7 +87,7 @@ describe(`Action creators for user-actions work correctly`, () => {
         });
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: REDIRECT_TO_ROUTE,
-          url: Routes.FAVORITES
+          url: Routes.HOME
         });
         expect(dispatch).toHaveBeenNthCalledWith(3, {
           type: SAVE_LOGIN,
