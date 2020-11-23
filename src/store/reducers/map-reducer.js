@@ -1,5 +1,5 @@
 import {HOTEL_HOVER} from '../actions/action-types';
-import {extend} from "utils";
+import {extend} from "../../utils";
 
 const initialState = {
   hover: [0, 0],

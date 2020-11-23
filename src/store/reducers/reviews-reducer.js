@@ -1,6 +1,6 @@
 import {REVIEWS, USER_REVIEW, USER_RATING, REVIEW_LOADING, REVIEW_LOADING_ERROR} from '../actions/action-types';
-import {extend} from "utils";
-import {MAX_COMMENTS} from 'const';
+import {extend} from "../../utils";
+import {MAX_COMMENTS} from '../../const';
 
 const initialState = {
   reviews: null,

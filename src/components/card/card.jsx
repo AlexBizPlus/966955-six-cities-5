@@ -1,12 +1,13 @@
 import React, {useRef} from "react";
 import {connect, useDispatch} from "react-redux";
-import {hoverHotelAction} from "mapActions";
-import {hotelUpdateAction} from "hotelActions";
-import {favoriteAction} from "userActions";
-import {myPropTypes as PropTypes} from "prop";
+import {hoverHotelAction} from "../../store/actions/map-actions";
+import {hotelUpdateAction} from "../../store/actions/hotel-actions";
+import {favoriteAction} from "../../store/actions/user-actions";
+import {myPropTypes as PropTypes} from "../../prop";
 import classNames from "classnames";
 import {Link} from 'react-router-dom';
-import {Routes} from 'const';
+import {Routes} from '../../const';
+import mapDispatchToProps from './card.connect';
 
 const Card = ({offer, classes, style}) => {
 
@@ -43,7 +44,7 @@ const Card = ({offer, classes, style}) => {
   return (
     <article
       onMouseOver={() => {
-        dispatch(hoverHotelAction([offer[`location`][`latitude`], offer[`location`][`longitude`]]));
+        dispatch(hoverHotelAction([offer.location.latitude, offer.location.longitude]));
       }}
       className={classes.join(` `)}
     >
@@ -104,14 +105,6 @@ Card.propTypes = {
   offer: PropTypes.offer,
   classes: PropTypes.classes,
   style: PropTypes.style,
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    hoverHotelAction: (hover) => dispatch(hoverHotelAction(hover)),
-    hotelUpdateAction: () => dispatch(hotelUpdateAction()),
-    favoriteAction: ()=> dispatch(favoriteAction())
-  };
 };
 
 export default connect(null, mapDispatchToProps)(Card);

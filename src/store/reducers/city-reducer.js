@@ -1,9 +1,9 @@
 import {ACTIVE_CITY} from '../actions/action-types';
-import {CitiesList} from 'const';
-import {extend} from "utils";
+import {CITIES_LIST} from '../../const';
+import {extend} from "../../utils";
 
 const initialState = {
-  activeCity: CitiesList[0]
+  activeCity: CITIES_LIST[0]
 };
 
 const cityReducer = (state = initialState, action) => {

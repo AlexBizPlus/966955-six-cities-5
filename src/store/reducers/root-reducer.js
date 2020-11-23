@@ -6,9 +6,9 @@ import mapReducer from './map-reducer';
 import {userReducer} from './user-reducer';
 
 export default combineReducers({
-  hotels: hotelReducer,
-  city: cityReducer,
-  reviews: reviewsReducer,
-  map: mapReducer,
-  user: userReducer,
+  HOTELS: hotelReducer,
+  CITY: cityReducer,
+  REVIEWS: reviewsReducer,
+  MAP: mapReducer,
+  USER: userReducer,
 });

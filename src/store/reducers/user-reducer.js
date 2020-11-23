@@ -1,7 +1,7 @@
 import browserHistory from "../../browser-history";
-import {AuthorizationStatus} from "const";
+import {AuthorizationStatus} from "../../const";
 import {REDIRECT_TO_ROUTE, REQUIRED_AUTHORIZATION, SAVE_LOGIN} from "../actions/action-types";
-import {extend} from "utils";
+import {extend} from "../../utils";
 
 export const redirect = (_store) => (next) => (action) => {
 

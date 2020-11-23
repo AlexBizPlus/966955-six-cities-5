@@ -1,18 +1,19 @@
 import React from "react";
 import {connect, useSelector, useDispatch} from "react-redux";
-import {setActiveCity} from "cityActions";
+import {setActiveCity} from "../../store/actions/city-actions";
 import classNames from "classnames";
-import {CitiesList} from "const";
+import {CITIES_LIST} from "../../const";
 import "./cities.css";
+import mapDispatchToProps from "./cities.connect";
 
 const Cities = () => {
 
-  const activeCity = useSelector((state) => state.city.activeCity);
+  const activeCity = useSelector((state) => state.CITY.activeCity);
   const dispatch = useDispatch();
 
   return (
     <ul className="locations__list tabs__list">
-      {CitiesList.map((item) => {
+      {CITIES_LIST.map((item) => {
         return <li className="locations__item" key={item}>
           <button
             type="button"
@@ -28,14 +29,11 @@ const Cities = () => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({CITY}) => {
   return {
-    activeCity: state.activeCity
+    activeCity: CITY.activeCity
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {setActiveCity: (city) => dispatch(setActiveCity(city))};
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cities);

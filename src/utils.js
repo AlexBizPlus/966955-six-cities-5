@@ -34,7 +34,6 @@ const compareItems = (a, b) => {
   }
 };
 
-
 export const compareItemsPrice = (ElementA, ElementB) => {
   return compareItems(ElementA.price, ElementB.price);
 };
