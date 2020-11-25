@@ -1,7 +1,7 @@
-import React, {useRef} from "react";
+import React, {useRef, useEffect} from "react";
 import {Link} from 'react-router-dom';
-import {useDispatch} from "react-redux";
-import {loginAction} from "@actions/user-actions";
+import {connect, useDispatch} from "react-redux";
+import {loginAction, checkAuthAction} from "@actions/user-actions";
 import {CITIES_LIST, Routes} from '@const';
 
 const Login = () => {
@@ -10,6 +10,10 @@ const Login = () => {
   const passwordElement = useRef();
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuthAction(Routes.HOME));
+  }, []);
 
   const handleFormSubmit = (evt)=> {
     evt.preventDefault();
@@ -84,4 +88,10 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginAction: (params) => dispatch(loginAction(params)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Login);

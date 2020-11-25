@@ -99,5 +99,8 @@ export const myPropTypes = {
 
   render: PropTypes.func.isRequired,
 
-  component: PropTypes.func.isRequired,
+  component: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.object
+  ]).isRequired,
 };

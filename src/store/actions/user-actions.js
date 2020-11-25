@@ -17,10 +17,15 @@ export const saveLoginAction = (login) => ({
   login,
 });
 
-export const checkAuthAction = () => (dispatch, _getState, api) => (
+export const checkAuthAction = (path) => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then((res) => dispatch(saveLoginAction(res.data.email)))
     .then(() => dispatch(requireAuthorizationAction(AuthorizationStatus.AUTH)))
+    .then(() => {
+      if (path) {
+        dispatch(redirectAction(path));
+      }
+    })
     .catch(() => dispatch(requireAuthorizationAction(AuthorizationStatus.NO_AUTH)))
 );
 

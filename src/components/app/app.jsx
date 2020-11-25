@@ -18,7 +18,6 @@ const App = () => {
     dispatch(checkAuthAction());
   }, []);
 
-
   return (
     <Router history={browserHistory}>
       <Switch>

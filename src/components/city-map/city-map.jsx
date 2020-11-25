@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from "react";
-import {useSelector} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {myPropTypes as PropTypes} from "@prop";
 import L from "leaflet";
 import "./city-map.css";
@@ -52,7 +52,7 @@ const CityMap = ({mode}) => {
 
       offers.map((offerItem) => {
 
-        const offerCords = [offerItem[`location`][`latitude`], offerItem[`location`][`longitude`]];
+        const offerCords = [offerItem.location.latitude, offerItem.location.longitude];
         const hotelMarker = L.marker(offerCords, {icon: hotelIcon});
 
         if (offerCords[0] === hover[0] && offerCords[1] === hover[1] && mode === `cities`) {
@@ -63,7 +63,7 @@ const CityMap = ({mode}) => {
       });
 
       if (mode === `offer`) {
-        L.marker([offer[`location`][`latitude`], offer[`location`][`longitude`]], {icon: activeIcon}).addTo(map);
+        L.marker([offer.location.latitude, offer.location.longitude], {icon: activeIcon}).addTo(map);
       }
 
       mapElement.current = map;
@@ -79,4 +79,14 @@ CityMap.propTypes = {
   mode: PropTypes.mode,
 };
 
-export default CityMap;
+const mapStateToProps = ({HOTELS, CITY, MAP}) => {
+  return {
+    hotels: HOTELS.hotels,
+    nearby: HOTELS.nearby,
+    offer: HOTELS.offer,
+    activeCity: CITY.activeCity,
+    hover: MAP.hover,
+  };
+};
+
+export default connect(mapStateToProps, null)(CityMap);

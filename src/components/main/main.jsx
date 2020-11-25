@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from 'react-router-dom';
-import {useSelector, useDispatch} from "react-redux";
+import {connect, useSelector, useDispatch} from "react-redux";
 import {fetchHotelsAction, hotelSortAction, hotelsListUpdateAction} from "@actions/hotel-actions";
 import classNames from "classnames";
 import Cards from "@cards";
@@ -190,4 +190,23 @@ const Main = () => {
   );
 };
 
-export default Main;
+const mapStateToProps = ({HOTELS, CITY, USER}) => {
+  return {
+    sort: HOTELS.sort,
+    hotels: HOTELS.hotels,
+    update: HOTELS.update,
+    activeCity: CITY.activeCity,
+    login: USER.login,
+    unsorted: HOTELS.unsorted
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchHotelsAction: (hotels) => dispatch(fetchHotelsAction(hotels)),
+    hotelSortAction: (sort) => dispatch(hotelSortAction(sort)),
+    hotelsListUpdateAction: (sort) => dispatch(hotelsListUpdateAction(sort)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

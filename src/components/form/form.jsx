@@ -1,5 +1,5 @@
 import React, {useRef, useEffect} from "react";
-import {useSelector, useDispatch} from "react-redux";
+import {connect, useSelector, useDispatch} from "react-redux";
 import {AuthorizationStatus, CommentLength} from "@const";
 import {
   userReviewAction,
@@ -35,10 +35,21 @@ const Form = () => {
     input2RatingRef.current.disabled = boolean;
     input1RatingRef.current.disabled = boolean;
     textareaRef.current.disabled = boolean;
+    if (boolean) {
+      buttonRef.current.disabled = boolean;
+    }
   };
 
   useEffect(() => {
-    if (input5RatingRef.current && input4RatingRef.current && input3RatingRef.current && input2RatingRef.current && input1RatingRef.current && textareaRef.current) {
+    if (
+      input5RatingRef.current &&
+      input4RatingRef.current &&
+      input3RatingRef.current &&
+      input2RatingRef.current &&
+      input1RatingRef.current &&
+      textareaRef.current &&
+      buttonRef.current
+    ) {
       disableForm(isLoading);
     }
   }, [isLoading]);
@@ -49,10 +60,6 @@ const Form = () => {
     }
   }, [isError]);
 
-  useEffect(() => {
-
-  }, []);
-
   const handleMessageClick = () => {
     errorMessageRef.current.classList.add(`no-display`);
     dispatch(reviewLoadingAction(false));
@@ -62,20 +69,21 @@ const Form = () => {
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
     dispatch(reviewLoadingAction(true));
-    dispatch(fetchReviewsPostAction(offer[`id`], {comment: review, rating}));
+    dispatch(fetchReviewsPostAction(offer.id, {comment: review, rating}));
     input5RatingRef.current.checked = false;
     input4RatingRef.current.checked = false;
     input3RatingRef.current.checked = false;
     input2RatingRef.current.checked = false;
     input1RatingRef.current.checked = false;
     textareaRef.current.value = ``;
+    buttonRef.current.disabled = true;
   };
-
 
   const handleFormChange = (evt) => {
     const {name, value} = evt.target;
     switch (name) {
       case `review`:
+        buttonRef.current.disabled = true;
         if (rating && value.length >= CommentLength.MIN) {
           dispatch(userReviewAction(value));
           buttonRef.current.disabled = false;
@@ -211,4 +219,23 @@ const Form = () => {
   );
 };
 
-export default Form;
+const mapStateToProps = ({HOTELS, USER, REVIEWS}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  offer: HOTELS.offer,
+  review: REVIEWS.review,
+  rating: REVIEWS.rating,
+  isLoading: REVIEWS.isLoading,
+  isError: REVIEWS.isError
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    userReviewAction: (review) => dispatch(userReviewAction(review)),
+    userRatingAction: (rating) => dispatch(userRatingAction(rating)),
+    fetchReviewsPostAction: (params) => dispatch(fetchReviewsPostAction(params)),
+    reviewLoadingAction: (isLoading)=> dispatch(reviewLoadingAction(isLoading)),
+    reviewErrorAction: (isError)=> dispatch(reviewErrorAction(isError))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

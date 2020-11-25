@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
-import {useSelector, useDispatch} from "react-redux";
+import {connect, useSelector, useDispatch} from "react-redux";
 import {fetchHotelsAction, hotelsListUpdateAction} from "@actions/hotel-actions";
 import {setActiveCity} from "@actions/city-actions";
 import {Routes, CITIES_LIST} from '@const';
@@ -107,4 +107,20 @@ const Favorites = () => {
   );
 };
 
-export default Favorites;
+const mapStateToProps = ({HOTELS, USER}) => {
+  return {
+    hotels: HOTELS.hotels,
+    update: HOTELS.update,
+    login: USER.login,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchHotelsAction: (hotels) => dispatch(fetchHotelsAction(hotels)),
+    hotelsListUpdateAction: (hotels) => dispatch(hotelsListUpdateAction(hotels)),
+    setActiveCity: (city) => dispatch(setActiveCity(city))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

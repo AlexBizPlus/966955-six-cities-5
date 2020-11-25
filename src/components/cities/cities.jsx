@@ -1,5 +1,5 @@
 import React from "react";
-import {useSelector, useDispatch} from "react-redux";
+import {connect, useSelector, useDispatch} from "react-redux";
 import {setActiveCity} from "@actions/city-actions";
 import classNames from "classnames";
 import {CITIES_LIST} from "@const";
@@ -28,4 +28,14 @@ const Cities = () => {
   );
 };
 
-export default Cities;
+const mapDispatchToProps = (dispatch) => {
+  return {setActiveCity: (city) => dispatch(setActiveCity(city))};
+};
+
+const mapStateToProps = ({CITY}) => {
+  return {
+    activeCity: CITY.activeCity
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cities);

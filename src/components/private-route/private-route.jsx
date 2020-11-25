@@ -29,4 +29,4 @@ const mapStateToProps = ({USER}) => ({
   authorizationStatus: USER.authorizationStatus,
 });
 
-export default connect(mapStateToProps)(PrivateRoute);
+export default connect(mapStateToProps, null)(PrivateRoute);
