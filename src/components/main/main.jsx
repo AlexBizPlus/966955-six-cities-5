@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Link} from 'react-router-dom';
-import {connect, useSelector, useDispatch} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {fetchHotelsAction, hotelSortAction, hotelsListUpdateAction} from "@actions/hotel-actions";
 import classNames from "classnames";
 import Cards from "@cards";
@@ -64,7 +64,7 @@ const Main = () => {
 
 
   if (!offers) {
-    return (<div>Loading</div>);
+    return (<div>Loading<span className="spinner"/></div>);
   }
 
   const handleMainPageClick = (evt) => {
@@ -190,23 +190,4 @@ const Main = () => {
   );
 };
 
-const mapStateToProps = ({HOTELS, CITY, USER}) => {
-  return {
-    sort: HOTELS.sort,
-    hotels: HOTELS.hotels,
-    update: HOTELS.update,
-    activeCity: CITY.activeCity,
-    login: USER.login,
-    unsorted: HOTELS.unsorted
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchHotelsAction: (hotels) => dispatch(fetchHotelsAction(hotels)),
-    hotelSortAction: (sort) => dispatch(hotelSortAction(sort)),
-    hotelsListUpdateAction: (sort) => dispatch(hotelsListUpdateAction(sort)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

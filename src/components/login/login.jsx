@@ -1,6 +1,6 @@
 import React, {useRef, useEffect} from "react";
 import {Link} from 'react-router-dom';
-import {connect, useDispatch} from "react-redux";
+import {useDispatch} from "react-redux";
 import {loginAction, checkAuthAction} from "@actions/user-actions";
 import {CITIES_LIST, Routes} from '@const';
 
@@ -88,10 +88,4 @@ const Login = () => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loginAction: (params) => dispatch(loginAction(params)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;

@@ -1,7 +1,7 @@
 import React from "react";
 import {myPropTypes as PropTypes} from "../../prop";
 import {Route, Redirect} from "react-router-dom";
-import {connect, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AuthorizationStatus, Routes} from "../../const";
 
 const PrivateRoute = ({path, exact, component: Component}) => {
@@ -25,8 +25,4 @@ PrivateRoute.propTypes = {
   component: PropTypes.component,
 };
 
-const mapStateToProps = ({USER}) => ({
-  authorizationStatus: USER.authorizationStatus,
-});
-
-export default connect(mapStateToProps, null)(PrivateRoute);
+export default PrivateRoute;

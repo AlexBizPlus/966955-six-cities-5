@@ -1,5 +1,5 @@
 import React from "react";
-import {connect, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 
 const EmptyMain = () => {
 
@@ -18,10 +18,4 @@ const EmptyMain = () => {
   );
 };
 
-const mapStateToProps = ({CITY}) => {
-  return {
-    activeCity: CITY.activeCity,
-  };
-};
-
-export default connect(mapStateToProps, null)(EmptyMain);
+export default EmptyMain;

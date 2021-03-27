@@ -1,0 +1,22 @@
+@keyframes rotateCW {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  display: block;
+  width: auto;
+  height: 22px;
+  flex-shrink: 0;
+  background-image: url("../img/spinner.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: rotateCW 1.3s linear infinite;
+  pointer-events: none;
+}

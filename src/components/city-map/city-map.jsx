@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from "react";
-import {connect, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {myPropTypes as PropTypes} from "@prop";
 import L from "leaflet";
 import "./city-map.css";
@@ -79,14 +79,4 @@ CityMap.propTypes = {
   mode: PropTypes.mode,
 };
 
-const mapStateToProps = ({HOTELS, CITY, MAP}) => {
-  return {
-    hotels: HOTELS.hotels,
-    nearby: HOTELS.nearby,
-    offer: HOTELS.offer,
-    activeCity: CITY.activeCity,
-    hover: MAP.hover,
-  };
-};
-
-export default connect(mapStateToProps, null)(CityMap);
+export default CityMap;

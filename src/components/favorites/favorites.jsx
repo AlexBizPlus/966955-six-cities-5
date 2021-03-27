@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
-import {connect, useSelector, useDispatch} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {fetchHotelsAction, hotelsListUpdateAction} from "@actions/hotel-actions";
 import {setActiveCity} from "@actions/city-actions";
 import {Routes, CITIES_LIST} from '@const';
@@ -23,7 +23,7 @@ const Favorites = () => {
   }, [update]);
 
   if (!offers) {
-    return (<div>Loading</div>);
+    return (<div className="spinner" />);
   }
 
   return (
@@ -55,21 +55,18 @@ const Favorites = () => {
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-
           {
             offers.filter((item) => item.is_favorite).length === 0
               ? <EmptyFavorites />
               : (<section className="favorites">
                 <h1 className="favorites__title">Saved listing</h1>
                 <ul className="favorites__list">
-
                   { CITIES_LIST.map((city) => {
                     const offersList = offers.filter((item) => item.city.name === city && item.is_favorite);
 
                     if (offersList.length === 0) {
                       return <div key={city}/>;
                     }
-
                     return (
                       <li className="favorites__locations-items" key={city}>
                         <div className="favorites__locations locations locations--current">
@@ -107,20 +104,4 @@ const Favorites = () => {
   );
 };
 
-const mapStateToProps = ({HOTELS, USER}) => {
-  return {
-    hotels: HOTELS.hotels,
-    update: HOTELS.update,
-    login: USER.login,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchHotelsAction: (hotels) => dispatch(fetchHotelsAction(hotels)),
-    hotelsListUpdateAction: (hotels) => dispatch(hotelsListUpdateAction(hotels)),
-    setActiveCity: (city) => dispatch(setActiveCity(city))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default Favorites;

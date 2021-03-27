@@ -1,5 +1,5 @@
-import React, {useRef, useEffect} from "react";
-import {connect, useSelector, useDispatch} from "react-redux";
+import React, {useRef, useEffect, useState} from "react";
+import {useSelector, useDispatch} from "react-redux";
 import {AuthorizationStatus, CommentLength} from "@const";
 import {
   userReviewAction,
@@ -15,6 +15,7 @@ const Form = () => {
   const authorizationStatus = useSelector((state) => state.USER.authorizationStatus);
   const offer = useSelector((state) => state.HOTELS.offer);
   const review = useSelector((state) => state.REVIEWS.review);
+  const reviews = useSelector((state) => state.REVIEWS.reviews);
   const rating = useSelector((state) => state.REVIEWS.rating);
   const isLoading = useSelector((state) => state.REVIEWS.isLoading);
   const isError = useSelector((state) => state.REVIEWS.isError);
@@ -27,6 +28,7 @@ const Form = () => {
   const input1RatingRef = useRef();
   const textareaRef = useRef();
   const errorMessageRef = useRef();
+  const [isBusy, setIsBusy] = useState(false);
 
   const disableForm = (boolean) => {
     input5RatingRef.current.disabled = boolean;
@@ -55,9 +57,14 @@ const Form = () => {
   }, [isLoading]);
 
   useEffect(() => {
+    setIsBusy(false);
+  }, [reviews]);
+
+  useEffect(() => {
     if (isError && errorMessageRef.current) {
       errorMessageRef.current.classList.remove(`no-display`);
     }
+    setIsBusy(false);
   }, [isError]);
 
   const handleMessageClick = () => {
@@ -69,6 +76,7 @@ const Form = () => {
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
     dispatch(reviewLoadingAction(true));
+    setIsBusy(true);
     dispatch(fetchReviewsPostAction(offer.id, {comment: review, rating}));
     input5RatingRef.current.checked = false;
     input4RatingRef.current.checked = false;
@@ -204,7 +212,9 @@ const Form = () => {
           disabled={true}
           ref={buttonRef}
         >
-          Submit
+          {
+            isBusy ? <span className="spinner"/> : `Submit`
+          }
         </button>
       </div>
       <div
@@ -219,23 +229,4 @@ const Form = () => {
   );
 };
 
-const mapStateToProps = ({HOTELS, USER, REVIEWS}) => ({
-  authorizationStatus: USER.authorizationStatus,
-  offer: HOTELS.offer,
-  review: REVIEWS.review,
-  rating: REVIEWS.rating,
-  isLoading: REVIEWS.isLoading,
-  isError: REVIEWS.isError
-});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    userReviewAction: (review) => dispatch(userReviewAction(review)),
-    userRatingAction: (rating) => dispatch(userRatingAction(rating)),
-    fetchReviewsPostAction: (params) => dispatch(fetchReviewsPostAction(params)),
-    reviewLoadingAction: (isLoading)=> dispatch(reviewLoadingAction(isLoading)),
-    reviewErrorAction: (isError)=> dispatch(reviewErrorAction(isError))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default Form;

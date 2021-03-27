@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import {Link, useParams} from 'react-router-dom';
-import {connect, useSelector, useDispatch} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {fetchHotelNearbyAction, fetchHotelOfferAction, hotelNearbyResolveAction} from "@actions/hotel-actions";
 import {fetchReviewsAction} from "@actions/reviews-actions";
 import {favoriteAction} from "@actions/user-actions";
@@ -38,7 +38,7 @@ const Offer = () => {
   }, [offer]);
 
   if (!offer || !reviews || !nearby) {
-    return (<div>Loading</div>);
+    return (<div>Loading<span className="spinner"/></div>);
   }
 
   const handleButtonClick = (evt) => {
@@ -224,25 +224,4 @@ const Offer = () => {
   );
 };
 
-const mapStateToProps = ({HOTELS, USER, REVIEWS}) => {
-  return {
-    offer: HOTELS.offer,
-    nearby: HOTELS.nearby,
-    update: HOTELS.update,
-    login: USER.login,
-    reviewsCount: REVIEWS.reviewsCount,
-    reviews: REVIEWS.reviews
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchHotelOfferAction: (offer) => dispatch(fetchHotelOfferAction(offer)),
-    fetchReviewsAction: (reviews) => dispatch(fetchReviewsAction(reviews)),
-    fetchHotelNearbyAction: (nearby) => dispatch(fetchHotelNearbyAction(nearby)),
-    hotelNearbyResolveAction: (nearby) => dispatch(hotelNearbyResolveAction(nearby)),
-    favoriteAction: ()=> dispatch(favoriteAction()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Offer);
+export default Offer;
